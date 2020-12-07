@@ -1,0 +1,18 @@
+.card {
+    .image {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        height: 275px;
+        background: transparent !important;
+        
+        img {
+            width: 75% !important;
+
+        }
+    }
+
+    > div:hover {
+        background-color: turquoise !important;
+    }
+}
