@@ -1,8 +1,8 @@
-import Axios, { Method } from "axios";
+import Axios, { AxiosRequestConfig, Method } from "axios";
 import { useEffect, useState } from "react";
 
 const instance = Axios.create();
-instance.interceptors.request.use((config) => {
+instance.interceptors.request.use((config: AxiosRequestConfig): AxiosRequestConfig => {
     config.baseURL = 'https://propertymanager-060e.restdb.io/rest';
     config.headers = {
         "content-type": "application/json",

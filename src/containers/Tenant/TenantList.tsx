@@ -12,6 +12,8 @@ const TenantList = (): ReactElement => {
 
     return (
         <>
+            <h1>Mieter</h1>
+
             <table className="ui single line table">
                 <thead>
                     <tr>

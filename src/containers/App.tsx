@@ -9,6 +9,8 @@ import OperatingCostList from './OperatingCosts/OperatingCostList';
 import Home from './Home/Home';
 import TenantCreate from './Tenant/TenantCreate';
 import TenantEdit from './Tenant/TenantEdit';
+import FlatCreate from './Flat/FlatCreate';
+import FlatEdit from './Flat/FlatEdit';
 
 const App = (): ReactElement => {
     return (
@@ -16,11 +18,17 @@ const App = (): ReactElement => {
             <Layout>
                 <Switch>
                     <Route path="/" exact component={Home} />
+
                     <Route path="/tenants" exact component={TenantList} />
                     <Route path="/tenants/create" exact component={TenantCreate} />
                     <Route path="/tenants/:id/edit" exact component={TenantEdit} />
-                    <Route path="/contracts" exact component={ContractList} />
+
                     <Route path="/flats" exact component={FlatList} />
+                    <Route path="/flats/create" exact component={FlatCreate} />
+                    <Route path="/flats/:id/edit" exact component={FlatEdit} />
+
+                    <Route path="/contracts" exact component={ContractList} />
+
                     <Route path="/operating-costs" exact component={OperatingCostList} />
                     <Redirect from="/home" to="/" />
                     <Route render={() => <Error404 />} />

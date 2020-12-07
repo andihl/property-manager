@@ -1,6 +1,6 @@
 export default interface Flat {
-    id: number,
+    _id: number,
     name: string,
     size: number,
-    layout: string
+    layouts: string[]
 }
