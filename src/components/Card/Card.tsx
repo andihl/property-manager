@@ -5,7 +5,7 @@ import css from './Card.module.scss';
 const Card = (props: Props): ReactElement => {
     return (
         <Link to={props.link} className={css.card}>
-            <div className={`ui card`}>
+            <div className={`ui card ${css.cardContainer}`}>
                 <div className={`image ${css.image}`}>
                     <img src={props.image} />
                 </div>
