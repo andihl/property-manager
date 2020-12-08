@@ -3,9 +3,11 @@ import Flat from "./Flat";
 import Tenant from "./Tenant";
 
 export default interface Contract {
-    id: number,
+    _id: number,
     tenants: Tenant[],
-    flat: Flat,
+    flat: Flat[], // because restdb.io sends always an array
     fee: number,
-    feeSteps: FeeStep[]
+    feesteps?: FeeStep[],
+    startDate: Date,
+    endDate?: Date
 }

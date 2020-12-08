@@ -9,13 +9,11 @@ const FlatForm = (props: Props): ReactElement => {
     const [name, setName] = useState<string>(props.flat?.name || '');
     const [size, setSize] = useState<number>(props.flat?.size || 0);
     const [layouts, setLayouts] = useState<string[]>(props.flat?.layouts || []);
-    console.log(props.flat);
 
     const saveFlat = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const data = { name, size, layouts };
-        console.log(data);
 
         if (props.flat) {
             api('PUT', `/flat/${props.flat._id}`, () => {
@@ -48,13 +46,13 @@ const FlatForm = (props: Props): ReactElement => {
 
     return (
         <form className="ui form" onSubmit={saveFlat}>
-            <div className="field">
+            <div className="required field">
                 <label>Name</label>
                 <input type="text" value={name} onChange={e => setName(e.target.value)} required autoComplete="off" />
             </div>
-            <div className="field">
+            <div className="required field">
                 <label>Größe</label>
-                <input type="number" value={size} onChange={e => setSize(+e.target.value)} autoComplete="off" />
+                <input type="number" value={size} onChange={e => setSize(+e.target.value)} required autoComplete="off" />
             </div>
             <div className="field">
                 <label>Grundriss(e)</label>

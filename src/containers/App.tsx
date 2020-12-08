@@ -11,6 +11,8 @@ import TenantCreate from './Tenant/TenantCreate';
 import TenantEdit from './Tenant/TenantEdit';
 import FlatCreate from './Flat/FlatCreate';
 import FlatEdit from './Flat/FlatEdit';
+import ContractCreate from './Contact/ContractCreate';
+import ContractEdit from './Contact/ContractEdit';
 
 const App = (): ReactElement => {
     return (
@@ -28,6 +30,8 @@ const App = (): ReactElement => {
                     <Route path="/flats/:id/edit" exact component={FlatEdit} />
 
                     <Route path="/contracts" exact component={ContractList} />
+                    <Route path="/contracts/create" exact component={ContractCreate} />
+                    <Route path="/contracts/:id/edit" exact component={ContractEdit} />
 
                     <Route path="/operating-costs" exact component={OperatingCostList} />
                     <Redirect from="/home" to="/" />
