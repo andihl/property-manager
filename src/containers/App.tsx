@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Error404 from '../components/Error/Error404';
-import Layout from '../components/Layout/Layout';
+import PageLayout from '../components/PageLayout/PageLayout';
 import TenantList from './Tenant/TenantList';
 import ContractList from './Contact/ContractList';
 import FlatList from './Flat/FlatList';
@@ -15,7 +15,7 @@ import FlatEdit from './Flat/FlatEdit';
 const App = (): ReactElement => {
     return (
         <BrowserRouter>
-            <Layout>
+            <PageLayout>
                 <Switch>
                     <Route path="/" exact component={Home} />
 
@@ -33,7 +33,7 @@ const App = (): ReactElement => {
                     <Redirect from="/home" to="/" />
                     <Route render={() => <Error404 />} />
                 </Switch>
-            </Layout>
+            </PageLayout>
         </BrowserRouter>
     );
 }
