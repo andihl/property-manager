@@ -20,8 +20,7 @@ const FlatDetails = (): ReactElement => {
         setLoading(true);
         api<Flat>('GET', `/flat/${params.id}`, (flat) => {
             setFlat(flat);
-            api<Contract[]>('GET', `/contract?q={"$or":[{"endDate":{"$exists":false}},{"endDate":{"$gt":{"$date":"$now"}}}],"flat":{"_id":"${flat._id}"}}`, (contracts) => {
-                // api<Contract[]>('GET', `/contract?q={"$or":[{"endDate":{"$exists":false}},{"endDate":{"$gt":{"$date":"$now"}}}],"startDate":{"$lte":{"$date":"$now"}},"flat":{"_id":"5fce374f3439f0540003bfe8"}}`, (contracts) => {
+            api<Contract[]>('GET', `/contract?q={"$or":[{"endDate":{"$exists":false}},{"endDate":{"$gt":{"$date":"$now"}}}],"startDate":{"$lte":{"$date":"$now"}},"flat":{"_id":"5fce374f3439f0540003bfe8"}}`, (contracts) => {
                 setContract(contracts?.length > 0 ? contracts[0] : null);
                 setLoading(false);
             });

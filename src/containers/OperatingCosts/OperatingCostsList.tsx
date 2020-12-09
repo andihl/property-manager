@@ -4,13 +4,29 @@ import Currency from '../../components/Currency/Currency';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import { Spinner } from '../../components/Spinner/Spinner';
 import { useApi } from '../../shared/api';
+import { useStore } from '../../store/store';
+import { calculateForUpcomingYear } from '../../types/Contract';
 import OperatingCosts from '../../types/OperatingCosts';
 
 const OperatingCostList = (): ReactElement => {
     const history = useHistory();
-    const { obj: operatingCosts, loading } = useApi<OperatingCosts[]>('GET', '/operatingcosts?h={"$orderby": {"year": -1}}');
+    const { store } = useStore();
+    const { obj: operatingCosts, setObj: setOperatingCosts, loading, setLoading } = useApi<OperatingCosts[]>('GET', '/operatingcosts?h={"$orderby": {"year": -1}}');
 
     if (loading || !operatingCosts) return <Spinner />
+
+    const calculateNewOC = (operatingCosts_: OperatingCosts, index: number): void => {
+        setLoading(true);
+        calculateForUpcomingYear(operatingCosts_, store.totalSize).then(() => {
+            const operatingCosts_ = [...operatingCosts];
+            operatingCosts_[index] = {
+                ...operatingCosts_[index],
+                allocated: true
+            }
+            setOperatingCosts(operatingCosts_);
+            setLoading(false);
+        });
+    }
 
     return (
         <>
@@ -33,7 +49,7 @@ const OperatingCostList = (): ReactElement => {
                     </tr>
                 </thead>
                 <tbody>
-                    {operatingCosts.map(operatingCost => (
+                    {operatingCosts.map((operatingCost, index) => (
                         <tr key={operatingCost._id}>
                             <td><strong>{operatingCost.year}</strong></td>
                             <td><Currency value={operatingCost.water} /></td>
@@ -56,6 +72,7 @@ const OperatingCostList = (): ReactElement => {
                             } />
                             </td>
                             <td className="right aligned collapsing">
+                                {!operatingCost.allocated && <button className="ui tiny button" onClick={() => calculateNewOC(operatingCost, index)}>Umverteilen</button>}
                                 <button className="ui tiny button" onClick={() => history.push(`/operating-costs/${operatingCost._id}/edit`)}>Bearbeiten</button>
                             </td>
                         </tr>

@@ -1,7 +1,7 @@
 import Axios, { AxiosRequestConfig, Method } from "axios";
 import { useEffect, useState } from "react";
 
-const instance = Axios.create();
+export const instance = Axios.create();
 instance.interceptors.request.use((config: AxiosRequestConfig): AxiosRequestConfig => {
     config.baseURL = 'https://propertymanager-060e.restdb.io/rest';
     config.headers = {
@@ -21,7 +21,7 @@ export default function api<T>(method: Method, path: string, callback: (data: T)
     }).then((response) => callback(response.data));
 }
 
-export function useApi<T>(method: Method, path: string): { obj: T | undefined, setObj: (obj: T) => void, loading: boolean } {
+export function useApi<T>(method: Method, path: string): { obj: T | undefined, setObj: (obj: T) => void, loading: boolean, setLoading: (loading: boolean) => void } {
     const [obj, setObj] = useState<T>();
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -33,5 +33,5 @@ export function useApi<T>(method: Method, path: string): { obj: T | undefined, s
         });
     }, [method, path]);
 
-    return { obj, setObj, loading };
+    return { obj, setObj, loading, setLoading };
 }

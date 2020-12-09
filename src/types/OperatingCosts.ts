@@ -8,5 +8,6 @@ export default interface OperatingCosts {
     salary: number,
     garbagedisposal: number,
     garden: number,
-    tax: number
+    tax: number,
+    allocated: boolean
 }

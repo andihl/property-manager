@@ -11,14 +11,14 @@ import FeeStep from '../../types/FeeStep';
 const ContractForm = (props: Props): ReactElement => {
     const history = useHistory();
 
-    const [selectedTenants, setSelectedTenants] = useState<any>(() => {
+    const [selectedTenants, setSelectedTenants] = useState<any>(() => { // eslint-disable-line @typescript-eslint/no-explicit-any
         if (!props.contract) return [];
 
         return props.contract.tenants.map((tenant: Tenant) => {
             return { value: tenant._id, label: tenant.name };
         });
     });
-    const [selectedFlat, setSelectedFlat] = useState<any>(() => {
+    const [selectedFlat, setSelectedFlat] = useState<any>(() => { // eslint-disable-line @typescript-eslint/no-explicit-any
         if (!props.contract) return null;
 
         return {

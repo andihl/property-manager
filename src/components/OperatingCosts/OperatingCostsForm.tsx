@@ -19,7 +19,7 @@ const OperatingCostsForm = (props: Props): ReactElement => {
     const saveOperatingCosts = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const data = { year, water, electricity, chimneysweep: chimneySweep, insturance, salary, garbagedisposal: garbageDisposal, garden, tax };
+        const data = { year, water, electricity, chimneysweep: chimneySweep, insturance, salary, garbagedisposal: garbageDisposal, garden, tax, allocated: false };
 
         if (props.operatingCosts) {
             api('PUT', `/operatingcosts/${props.operatingCosts._id}`, () => {
