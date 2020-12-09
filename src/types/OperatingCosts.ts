@@ -1,5 +1,5 @@
 export default interface OperatingCosts {
-    _id: number,
+    readonly _id: number,
     year: number,
     water: number,
     electricity: number,

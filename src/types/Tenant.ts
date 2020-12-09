@@ -1,5 +1,5 @@
 export default interface Tenant {
-    _id: number
+    readonly _id: number
     name: string,
     dateOfBirth: Date,
     address: string,

@@ -7,7 +7,7 @@ import OperatingCosts from "./OperatingCosts";
 import Tenant from "./Tenant";
 
 export default interface Contract {
-    _id: number,
+    readonly _id: number,
     tenants: Tenant[],
     flat: Flat[], // because restdb.io sends always an array
     fee: number,
