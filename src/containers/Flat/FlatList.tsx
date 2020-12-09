@@ -37,6 +37,7 @@ const FlatList = (): ReactElement => {
                                 </div>
                             </td>
                             <td className="right aligned collapsing">
+                                <button className="ui tiny button" onClick={() => history.push(`/flats/${flat._id}`)}>Details</button>
                                 <button className="ui tiny button" onClick={() => history.push(`/flats/${flat._id}/edit`)}>Bearbeiten</button>
                             </td>
                         </tr>

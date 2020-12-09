@@ -5,7 +5,7 @@ const PageHeader = (props: Props): ReactElement => {
     return (
         <div className={css.pageHeader}>
             <h1>{props.headline}</h1>
-            {props.info && <div>{props.info}</div>}
+            <div>{props.info}</div>
         </div>
     )
 }

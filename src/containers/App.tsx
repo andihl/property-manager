@@ -9,6 +9,7 @@ import TenantEdit from './Tenant/TenantEdit';
 import FlatList from './Flat/FlatList';
 import FlatCreate from './Flat/FlatCreate';
 import FlatEdit from './Flat/FlatEdit';
+import FlatDetails from './Flat/FlatDetails';
 import ContractList from './Contact/ContractList';
 import ContractCreate from './Contact/ContractCreate';
 import ContractEdit from './Contact/ContractEdit';
@@ -47,6 +48,7 @@ const App = (): ReactElement => {
                     <Route path="/flats" exact component={FlatList} />
                     <Route path="/flats/create" exact component={FlatCreate} />
                     <Route path="/flats/:id/edit" exact component={FlatEdit} />
+                    <Route path="/flats/:id" exact component={FlatDetails} />
 
                     <Route path="/contracts" exact component={ContractList} />
                     <Route path="/contracts/create" exact component={ContractCreate} />
