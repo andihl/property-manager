@@ -5,7 +5,7 @@ import PageLayout from '../components/PageLayout/PageLayout';
 import TenantList from './Tenant/TenantList';
 import ContractList from './Contact/ContractList';
 import FlatList from './Flat/FlatList';
-import OperatingCostList from './OperatingCosts/OperatingCostList';
+import OperatingCostList from './OperatingCosts/OperatingCostsList';
 import Home from './Home/Home';
 import TenantCreate from './Tenant/TenantCreate';
 import TenantEdit from './Tenant/TenantEdit';
@@ -13,6 +13,8 @@ import FlatCreate from './Flat/FlatCreate';
 import FlatEdit from './Flat/FlatEdit';
 import ContractCreate from './Contact/ContractCreate';
 import ContractEdit from './Contact/ContractEdit';
+import OperatingCostsCreate from './OperatingCosts/OperatingCostsCreate';
+import OperatingCostsEdit from './OperatingCosts/OperatingCostsEdit';
 
 const App = (): ReactElement => {
     return (
@@ -34,6 +36,9 @@ const App = (): ReactElement => {
                     <Route path="/contracts/:id/edit" exact component={ContractEdit} />
 
                     <Route path="/operating-costs" exact component={OperatingCostList} />
+                    <Route path="/operating-costs/create" exact component={OperatingCostsCreate} />
+                    <Route path="/operating-costs/:id/edit" exact component={OperatingCostsEdit} />
+
                     <Redirect from="/home" to="/" />
                     <Route render={() => <Error404 />} />
                 </Switch>
