@@ -5,14 +5,14 @@ const PageHeader = (props: Props): ReactElement => {
     return (
         <div className={css.pageHeader}>
             <h1>{props.headline}</h1>
-            <div>{props.info}</div>
+            <div>{props.children}</div>
         </div>
     )
 }
 
 interface Props {
     headline: string,
-    info?: string
+    children?: ReactElement
 }
 
 export default PageHeader;

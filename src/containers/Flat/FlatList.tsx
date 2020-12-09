@@ -13,7 +13,9 @@ const FlatList = (): ReactElement => {
 
     return (
         <>
-            <PageHeader headline="Wohnungen" info={`Gesamtgröße aller Wohnungen: ${store.totalSize}㎡`} />
+            <PageHeader headline="Wohnungen">
+                <>{`Gesamtgröße aller Wohnungen: ${store.totalSize}`}&#13217;</>
+            </PageHeader>
 
             <table className="ui single line table">
                 <thead>

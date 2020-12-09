@@ -83,7 +83,7 @@ const ContractForm = (props: Props): ReactElement => {
 
         const flat = { '_id': selectedFlat.value };
 
-        const data = { tenants, flat, fee, feesteps: steps, startDate, endDate };
+        const data = { tenants, flat, fee, feesteps: steps, startDate, endDate: endDate ? endDate : null };
         if (props.contract) {
             api('PUT', `/contract/${props.contract._id}`, () => {
                 history.push('/contracts');

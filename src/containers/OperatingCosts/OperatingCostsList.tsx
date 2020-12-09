@@ -8,13 +8,12 @@ import OperatingCosts from '../../types/OperatingCosts';
 
 const OperatingCostList = (): ReactElement => {
     const history = useHistory();
-    const { obj: operatingCosts, loading } = useApi<OperatingCosts[]>('GET', '/operatingcosts');
+    const { obj: operatingCosts, loading } = useApi<OperatingCosts[]>('GET', '/operatingcosts?h={"$orderby": {"year": -1}}');
 
     if (loading || !operatingCosts) return <Spinner />
 
     return (
         <>
-            <h1>Betriebskosten</h1>
             <PageHeader headline="Betriebskosten" />
 
             <table className="ui single line table">
