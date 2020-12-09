@@ -53,7 +53,7 @@ const ContractForm = (props: Props): ReactElement => {
     }
 
     const onDeleteStep = (): void => {
-        if (steps.length <= 1) return;
+        if (steps.length === 0) return;
 
         const steps_ = [...steps];
         steps_.pop();
@@ -135,10 +135,12 @@ const ContractForm = (props: Props): ReactElement => {
                     <button className="ui mini button" type="button" onClick={onAddStep}>+</button>
                     <button className="ui mini button" type="button" onClick={onDeleteStep}>-</button>
                 </div>
-                <div className="two fields">
-                    <label className="eight wide field">Jahr</label>
-                    <label className="eight wide field">Staffel</label>
-                </div>
+                {steps.length > 0 && (
+                    <div className="two fields">
+                        <label className="eight wide field">Jahr</label>
+                        <label className="eight wide field">Staffel</label>
+                    </div>
+                )}
                 {steps.map((step, index) => (
                     <div className="two fields" key={index}>
                         <div className="field">

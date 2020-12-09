@@ -1,20 +1,19 @@
 import React, { ReactElement } from 'react'
 import { useHistory } from 'react-router-dom';
 import LayoutThumbnail from '../../components/Flat/LayoutThumbnail';
+import PageHeader from '../../components/PageHeader/PageHeader';
 import { Spinner } from '../../components/Spinner/Spinner';
-import { useApi } from '../../shared/api';
-import Flat from '../../types/Flat';
+import { useStore } from '../../store/store';
 
 const FlatList = (): ReactElement => {
     const history = useHistory();
+    const { store } = useStore();
 
-    const { obj: flats, loading } = useApi<Flat[]>('GET', '/flat');
-
-    if (loading || !flats) return <Spinner />
+    if (!store.flats) return <Spinner />
 
     return (
         <>
-            <h1>Wohnugen</h1>
+            <PageHeader headline="Wohnungen" info={`Gesamtgröße aller Wohnungen: ${store.totalSize}㎡`} />
 
             <table className="ui single line table">
                 <thead>
@@ -26,10 +25,10 @@ const FlatList = (): ReactElement => {
                     </tr>
                 </thead>
                 <tbody>
-                    {flats.map(flat => (
+                    {store.flats.map(flat => (
                         <tr key={flat._id}>
                             <td>{flat.name}</td>
-                            <td>{flat.size}</td>
+                            <td>{flat.size}&#13217;</td>
                             <td>
                                 <div >
                                     {flat.layouts.map((layout, index) => (

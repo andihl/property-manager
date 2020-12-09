@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useHistory } from 'react-router-dom';
+import PageHeader from '../../components/PageHeader/PageHeader';
 import { Spinner } from '../../components/Spinner/Spinner';
 import { useApi } from '../../shared/api';
 import Contract from '../../types/Contract';
@@ -12,7 +13,7 @@ const ContractList = (): ReactElement => {
 
     return (
         <>
-            <h1>Mietverträge</h1>
+            <PageHeader headline="Mietverträge" />
 
             <table className="ui single line table">
                 <thead>

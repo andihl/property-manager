@@ -1,28 +1,37 @@
 import React, { ChangeEvent, FormEvent, ReactElement, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import api from '../../shared/api';
+import { useStore } from '../../store/store';
 import Flat from '../../types/Flat';
+import { Spinner } from '../Spinner/Spinner';
 
 const FlatForm = (props: Props): ReactElement => {
     const history = useHistory();
+    const { dispatch } = useStore();
 
     const [name, setName] = useState<string>(props.flat?.name || '');
     const [size, setSize] = useState<number>(props.flat?.size || 0);
     const [layouts, setLayouts] = useState<string[]>(props.flat?.layouts || []);
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     const saveFlat = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const data = { name, size, layouts };
+        const callback = () => {
+            api<Flat[]>('GET', '/flat', (response) => {
+                dispatch({ type: 'UPDATE_FLATS', payload: { flats: response } })
+                setLoading(false);
+                history.push('/flats');
+            });
+        }
 
+        setLoading(true);
         if (props.flat) {
-            api('PUT', `/flat/${props.flat._id}`, () => {
-                history.push('/flats');
-            }, data);
+            api('PUT', `/flat/${props.flat._id}`, callback, data);
         } else {
-            api('POST', '/flat', () => {
-                history.push('/flats');
-            }, data);
+            api('POST', '/flat', callback, data);
         }
     }
 
@@ -43,6 +52,8 @@ const FlatForm = (props: Props): ReactElement => {
         layouts_[index] = event.target.value;
         setLayouts(layouts_);
     }
+
+    if (loading) return <Spinner />;
 
     return (
         <form className="ui form" onSubmit={saveFlat}>

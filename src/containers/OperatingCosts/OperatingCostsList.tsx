@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useHistory } from 'react-router-dom';
 import Currency from '../../components/Currency/Currency';
+import PageHeader from '../../components/PageHeader/PageHeader';
 import { Spinner } from '../../components/Spinner/Spinner';
 import { useApi } from '../../shared/api';
 import OperatingCosts from '../../types/OperatingCosts';
@@ -14,6 +15,7 @@ const OperatingCostList = (): ReactElement => {
     return (
         <>
             <h1>Betriebskosten</h1>
+            <PageHeader headline="Betriebskosten" />
 
             <table className="ui single line table">
                 <thead>
