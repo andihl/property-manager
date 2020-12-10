@@ -10,7 +10,7 @@ const OperatingCostsForm = (props: Props): ReactElement => {
     const [water, setWater] = useState<number>(props.operatingCosts?.water || 0);
     const [electricity, setElectricity] = useState(props.operatingCosts?.electricity || 0);
     const [chimneySweep, setChimneySweep] = useState<number>(props.operatingCosts?.chimneysweep || 0);
-    const [insturance, setInsturance] = useState<number>(props.operatingCosts?.insurance || 0);
+    const [insurance, setInsurance] = useState<number>(props.operatingCosts?.insurance || 0);
     const [salary, setSalary] = useState<number>(props.operatingCosts?.salary || 0);
     const [garbageDisposal, setGarbageDisposal] = useState<number>(props.operatingCosts?.garbagedisposal || 0);
     const [garden, setGarden] = useState<number>(props.operatingCosts?.garden || 0);
@@ -19,7 +19,7 @@ const OperatingCostsForm = (props: Props): ReactElement => {
     const saveOperatingCosts = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const data = { year, water, electricity, chimneysweep: chimneySweep, insturance, salary, garbagedisposal: garbageDisposal, garden, tax, allocated: false };
+        const data = { year, water, electricity, chimneysweep: chimneySweep, insurance, salary, garbagedisposal: garbageDisposal, garden, tax, allocated: false };
 
         if (props.operatingCosts) {
             api('PUT', `/operatingcosts/${props.operatingCosts._id}`, () => {
@@ -53,7 +53,7 @@ const OperatingCostsForm = (props: Props): ReactElement => {
                 </div>
                 <div className="field required">
                     <label>Versicherung</label>
-                    <input type="number" value={insturance} onChange={e => setInsturance(+e.target.value)} required autoComplete="off" />
+                    <input type="number" value={insurance} onChange={e => setInsurance(+e.target.value)} required autoComplete="off" />
                 </div>
                 <div className="field required">
                     <label>Gehälter (Hauswart,Winterdienst, ...)</label>

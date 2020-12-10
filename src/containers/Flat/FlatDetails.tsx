@@ -11,6 +11,7 @@ import ContractDetailTable from '../Contract/ContractDetailTable';
 import css from './FlatDetails.module.scss';
 import FlatDetailsTable from './FlatDetailsTable';
 import OperatingCostsDetailTable from '../OperatingCosts/OperatingCostsDetailTable';
+import OperatingCostsLineChart from '../../components/OperatingCosts/OperatingCostsLineChart';
 
 const FlatDetails = (): ReactElement => {
     const params = useParams<{ id: string }>();
@@ -77,7 +78,7 @@ const FlatDetails = (): ReactElement => {
                             <div className="row">
                                 <div className="sixteen wide column">
                                     <ContentCard>
-                                        <></>
+                                        <OperatingCostsLineChart operatingCosts={operatingCosts} />
                                     </ContentCard>
                                 </div>
                             </div>
