@@ -1,3 +1,5 @@
+import Flat from "./Flat"
+
 export default interface OperatingCosts {
     readonly _id: number,
     year: number,
@@ -10,4 +12,15 @@ export default interface OperatingCosts {
     garden: number,
     tax: number,
     allocated: boolean
+}
+
+export const calculateTotalOperatingCosts = (oc: OperatingCosts): number => {
+    return oc.water +
+        oc.electricity +
+        oc.chimneysweep +
+        oc.insurance +
+        oc.salary +
+        oc.garbagedisposal +
+        oc.garden +
+        oc.tax
 }

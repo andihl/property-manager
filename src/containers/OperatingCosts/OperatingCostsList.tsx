@@ -7,7 +7,7 @@ import { Spinner } from '../../components/Spinner/Spinner';
 import { useApi } from '../../shared/api';
 import { useStore } from '../../store/store';
 import { calculateForUpcomingYear } from '../../types/Contract';
-import OperatingCosts from '../../types/OperatingCosts';
+import OperatingCosts, { calculateTotalOperatingCosts } from '../../types/OperatingCosts';
 
 const OperatingCostList = (): ReactElement => {
     const history = useHistory();
@@ -64,16 +64,7 @@ const OperatingCostList = (): ReactElement => {
                                         <td><Currency value={operatingCost.garbagedisposal} /></td>
                                         <td><Currency value={operatingCost.garden} /></td>
                                         <td><Currency value={operatingCost.tax} /></td>
-                                        <td><Currency value={
-                                            operatingCost.water +
-                                            operatingCost.electricity +
-                                            operatingCost.chimneysweep +
-                                            operatingCost.insurance +
-                                            operatingCost.salary +
-                                            operatingCost.garbagedisposal +
-                                            operatingCost.garden +
-                                            operatingCost.tax
-                                        } />
+                                        <td><Currency value={calculateTotalOperatingCosts(operatingCost)} />
                                         </td>
                                         <td className="right aligned collapsing">
                                             {!operatingCost.allocated ? (

@@ -3,7 +3,7 @@ import { instance } from "../shared/api";
 import AdvancedPaymentOfOperatingCosts from "./AdvancedPaymentOfOperatingCosts";
 import FeeStep from "./FeeStep";
 import Flat from "./Flat";
-import OperatingCosts from "./OperatingCosts";
+import OperatingCosts, { calculateTotalOperatingCosts } from "./OperatingCosts";
 import Tenant from "./Tenant";
 
 export default interface Contract {
@@ -18,14 +18,7 @@ export default interface Contract {
 }
 
 export const calculateForUpcomingYear = (operatingCosts: OperatingCosts, totalSize: number): Promise<void | AxiosResponse<any>> => {
-    const sum = operatingCosts.water +
-        operatingCosts.electricity +
-        operatingCosts.chimneysweep +
-        operatingCosts.insurance +
-        operatingCosts.salary +
-        operatingCosts.garbagedisposal +
-        operatingCosts.garden +
-        operatingCosts.tax;
+    const sum = calculateTotalOperatingCosts(operatingCosts);
 
     const requests: Promise<AxiosResponse<any>>[] = []; // eslint-disable-line @typescript-eslint/no-explicit-any
 

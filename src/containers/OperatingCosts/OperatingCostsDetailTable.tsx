@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import Currency from '../../components/Currency/Currency';
 import { useStore } from '../../store/store';
 import Flat from '../../types/Flat';
-import OperatingCosts from '../../types/OperatingCosts';
+import OperatingCosts, { calculateTotalOperatingCosts } from '../../types/OperatingCosts';
 
 const OperatingCostsDetailTable = (props: Props): ReactElement => {
     const { store } = useStore();
@@ -40,27 +40,13 @@ const OperatingCostsDetailTable = (props: Props): ReactElement => {
                             <td><Currency value={calculatePercentual(operatingCost.garbagedisposal)} /></td>
                             <td><Currency value={calculatePercentual(operatingCost.garden)} /></td>
                             <td><Currency value={calculatePercentual(operatingCost.tax)} /></td>
-                            <td><strong><Currency value={calculatePercentual(
-                                operatingCost.water +
-                                operatingCost.electricity +
-                                operatingCost.chimneysweep +
-                                operatingCost.insurance +
-                                operatingCost.salary +
-                                operatingCost.garbagedisposal +
-                                operatingCost.garden +
-                                operatingCost.tax
-                            )} /></strong>
+                            <td>
+                                <strong><Currency value={calculatePercentual(calculateTotalOperatingCosts(operatingCost))} /></strong>
                             </td>
-                            <td><strong><Currency value={calculatePercentual(
-                                operatingCost.water +
-                                operatingCost.electricity +
-                                operatingCost.chimneysweep +
-                                operatingCost.insurance +
-                                operatingCost.salary +
-                                operatingCost.garbagedisposal +
-                                operatingCost.garden +
-                                operatingCost.tax
-                            ) / 12} /></strong>
+                            <td>
+                                <strong>
+                                    <Currency value={calculatePercentual(calculateTotalOperatingCosts(operatingCost)) / 12} />
+                                </strong>
                             </td>
                         </tr>
                     ))}

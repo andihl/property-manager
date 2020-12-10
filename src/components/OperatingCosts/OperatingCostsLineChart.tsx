@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Line } from 'react-chartjs-2';
-import OperatingCosts from '../../types/OperatingCosts';
+import OperatingCosts, { calculateTotalOperatingCosts } from '../../types/OperatingCosts';
 
 const OperatingCostsLineChart = (props: Props): ReactElement => {
 
@@ -8,14 +8,7 @@ const OperatingCostsLineChart = (props: Props): ReactElement => {
     const data: number[] = []
     props.operatingCosts.map(oc => {
         labels.push(oc.year.toString());
-        data.push(oc.water +
-            oc.electricity +
-            oc.chimneysweep +
-            oc.insurance +
-            oc.salary +
-            oc.garbagedisposal +
-            oc.garden +
-            oc.tax)
+        data.push(calculateTotalOperatingCosts(oc))
     });
 
     const chartData = {
