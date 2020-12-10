@@ -31,7 +31,7 @@ const OperatingCostsDetailTable = (props: Props): ReactElement => {
                         <td><Currency value={calculatePercentual(operatingCost.water)} /></td>
                         <td><Currency value={calculatePercentual(operatingCost.electricity)} /></td>
                         <td><Currency value={calculatePercentual(operatingCost.chimneysweep)} /></td>
-                        <td><Currency value={calculatePercentual(operatingCost.insturance)} /></td>
+                        <td><Currency value={calculatePercentual(operatingCost.insurance)} /></td>
                         <td><Currency value={calculatePercentual(operatingCost.salary)} /></td>
                         <td><Currency value={calculatePercentual(operatingCost.garbagedisposal)} /></td>
                         <td><Currency value={calculatePercentual(operatingCost.garden)} /></td>

@@ -21,7 +21,7 @@ export const calculateForUpcomingYear = (operatingCosts: OperatingCosts, totalSi
     const sum = operatingCosts.water +
         operatingCosts.electricity +
         operatingCosts.chimneysweep +
-        operatingCosts.insturance +
+        operatingCosts.insurance +
         operatingCosts.salary +
         operatingCosts.garbagedisposal +
         operatingCosts.garden +

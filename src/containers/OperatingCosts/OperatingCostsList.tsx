@@ -55,7 +55,7 @@ const OperatingCostList = (): ReactElement => {
                             <td><Currency value={operatingCost.water} /></td>
                             <td><Currency value={operatingCost.electricity} /></td>
                             <td><Currency value={operatingCost.chimneysweep} /></td>
-                            <td><Currency value={operatingCost.insturance} /></td>
+                            <td><Currency value={operatingCost.insurance} /></td>
                             <td><Currency value={operatingCost.salary} /></td>
                             <td><Currency value={operatingCost.garbagedisposal} /></td>
                             <td><Currency value={operatingCost.garden} /></td>
@@ -64,7 +64,7 @@ const OperatingCostList = (): ReactElement => {
                                 operatingCost.water +
                                 operatingCost.electricity +
                                 operatingCost.chimneysweep +
-                                operatingCost.insturance +
+                                operatingCost.insurance +
                                 operatingCost.salary +
                                 operatingCost.garbagedisposal +
                                 operatingCost.garden +
@@ -72,8 +72,14 @@ const OperatingCostList = (): ReactElement => {
                             } />
                             </td>
                             <td className="right aligned collapsing">
-                                {!operatingCost.allocated && <button className="ui tiny button" onClick={() => calculateNewOC(operatingCost, index)}>Umverteilen</button>}
-                                <button className="ui tiny button" onClick={() => history.push(`/operating-costs/${operatingCost._id}/edit`)}>Bearbeiten</button>
+                                {!operatingCost.allocated ? (
+                                    <>
+                                        <button className="ui tiny button" onClick={() => calculateNewOC(operatingCost, index)}>Umverteilen</button>
+                                        <button className="ui tiny button" onClick={() => history.push(`/operating-costs/${operatingCost._id}/edit`)}>Bearbeiten</button>
+                                    </>
+                                ) : (
+                                        <span><i>bereits umverteilt &amp;<br /> Vorauszahlungen berechent</i></span>
+                                    )}
                             </td>
                         </tr>
                     ))}

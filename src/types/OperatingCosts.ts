@@ -4,7 +4,7 @@ export default interface OperatingCosts {
     water: number,
     electricity: number,
     chimneysweep: number,
-    insturance: number,
+    insurance: number,
     salary: number,
     garbagedisposal: number,
     garden: number,

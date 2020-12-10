@@ -22,7 +22,7 @@ const ContractDetailTable = (props: Props): ReactElement => {
                             <td>
                                 {props.contract.tenants.map((tenant, index) => (
                                     <div key={index}>
-                                        <Link to={`/tenant/${tenant._id}/edit`} >){tenant.name}</Link>
+                                        <Link to={`/tenant/${tenant._id}/edit`} >{tenant.name}</Link>
                                     </div>
                                 ))}
                             </td>

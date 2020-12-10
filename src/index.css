@@ -1,1 +1,7 @@
 @import '~semantic-ui-css/semantic.css';
+
+form > fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
