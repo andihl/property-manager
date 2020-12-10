@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom';
-import Currency from '../../components/Currency/Currency';
+import ContentCard from '../../components/Card/ContentCard';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import { Spinner } from '../../components/Spinner/Spinner';
 import api from '../../shared/api';
@@ -14,9 +14,7 @@ import FlatDetailsTable from './FlatDetailsTable';
 import OperatingCostsDetailTable from './OperatingCostsDetailTable';
 
 const FlatDetails = (): ReactElement => {
-    const history = useHistory();
     const params = useParams<{ id: string }>();
-    const { store } = useStore();
     const [loading, setLoading] = useState<boolean>(false);
     const [flat, setFlat] = useState<Flat>();
     const [contract, setContract] = useState<Contract | null>(null);
@@ -48,47 +46,40 @@ const FlatDetails = (): ReactElement => {
                     <div className="row">
                         <div className="four wide column">
                             <div>
-                                <div className={`ui card ${css.card}`}>
-                                    <div className="content">
-                                        <FlatDetailsTable flat={flat} />
-                                    </div>
-                                </div>
-                                <div className={`ui card ${css.card}`}>
-                                    <div className="content">
-                                        <ContractDetailTable contract={contract} />
-                                    </div>
-                                </div>
+                                <ContentCard>
+                                    <FlatDetailsTable flat={flat} />
+                                </ContentCard>
+                                <ContentCard>
+                                    <ContractDetailTable contract={contract} />
+                                </ContentCard>
                             </div>
                         </div>
                         <div className="twelve wide column">
-                            <div className={`ui card ${css.card}`}>
-                                <div className="content">
+                            <ContentCard>
+                                <>
                                     {flat.layouts.map((layout, index) => (
                                         <Link to={`https://www.roomle.com/app/editor/${layout}`} target="_blank" key={index}>
                                             <img src={`https://uploads.roomle.com/plans/${layout}/thumbnail.png`} className={css.layout} />
                                         </Link>
                                     ))}
-                                </div>
-                            </div>
+                                </>
+                            </ContentCard>
                         </div>
                     </div>
                     {operatingCosts && (
                         <>
                             <div className="row">
                                 <div className="sixteen wide column">
-                                    <div className={`ui card ${css.card}`}>
-                                        <div className="content">
-                                            <OperatingCostsDetailTable operatingCosts={operatingCosts} flat={flat} />
-                                        </div>
-                                    </div>
+                                    <ContentCard>
+                                        <OperatingCostsDetailTable operatingCosts={operatingCosts} flat={flat} />
+                                    </ContentCard>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="sixteen wide column">
-                                    <div className={`ui card ${css.card}`}>
-                                        <div className="content">
-                                        </div>
-                                    </div>
+                                    <ContentCard>
+                                        <></>
+                                    </ContentCard>
                                 </div>
                             </div>
                         </>
