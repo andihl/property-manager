@@ -3,22 +3,22 @@ import contract from '../../assets/contract.png';
 import layout from '../../assets/layout.png';
 import electricity from '../../assets/electricity.png';
 import person from '../../assets/person.png';
-import Card from '../../components/Card/Card';
+import LinkCard from '../../components/Card/LinkCard';
 
 const Home = (): ReactElement => {
     return (
         <div className="ui grid">
             <div className="eight wide column">
-                <Card link="/tenants" image={person} label="Mieter" />
+                <LinkCard link="/tenants" image={person} label="Mieter" />
             </div>
             <div className="eight wide column">
-                <Card link="/flats" image={layout} label="Wohnungen" />
+                <LinkCard link="/flats" image={layout} label="Wohnungen" />
             </div>
             <div className="eight wide column">
-                <Card link="/contracts" image={contract} label="Verträge" />
+                <LinkCard link="/contracts" image={contract} label="Verträge" />
             </div>
             <div className="eight wide column">
-                <Card link="/operating-costs" image={electricity} label="Betriebskosten" />
+                <LinkCard link="/operating-costs" image={electricity} label="Betriebskosten" />
             </div>
         </div >
     )

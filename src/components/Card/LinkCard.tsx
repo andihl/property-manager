@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom';
-import css from './Card.module.scss';
+import css from './LinkCard.module.scss';
 
-const Card = (props: Props): ReactElement => {
+const LinkCard = (props: Props): ReactElement => {
     return (
         <Link to={props.link} className={css.card}>
             <div className={`ui card ${css.cardContainer}`}>
@@ -23,4 +23,4 @@ interface Props {
     label: string
 }
 
-export default Card;
+export default LinkCard;

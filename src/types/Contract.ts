@@ -17,7 +17,7 @@ export default interface Contract {
     endDate?: Date
 }
 
-export const calculateForUpcomingYear = (operatingCosts: OperatingCosts, totalSize: number) => { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
+export const calculateForUpcomingYear = (operatingCosts: OperatingCosts, totalSize: number): Promise<void | AxiosResponse<any>> => {
     const sum = operatingCosts.water +
         operatingCosts.electricity +
         operatingCosts.chimneysweep +
