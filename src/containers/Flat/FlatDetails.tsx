@@ -1,17 +1,16 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ContentCard from '../../components/Card/ContentCard';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import { Spinner } from '../../components/Spinner/Spinner';
 import api from '../../shared/api';
-import { useStore } from '../../store/store';
 import Contract from '../../types/Contract';
 import Flat from '../../types/Flat';
 import OperatingCosts from '../../types/OperatingCosts';
-import ContractDetailTable from './ContractDetailTable';
+import ContractDetailTable from '../Contract/ContractDetailTable';
 import css from './FlatDetails.module.scss';
 import FlatDetailsTable from './FlatDetailsTable';
-import OperatingCostsDetailTable from './OperatingCostsDetailTable';
+import OperatingCostsDetailTable from '../OperatingCosts/OperatingCostsDetailTable';
 
 const FlatDetails = (): ReactElement => {
     const params = useParams<{ id: string }>();
@@ -54,7 +53,7 @@ const FlatDetails = (): ReactElement => {
                                 </ContentCard>
                             </div>
                         </div>
-                        <div className="twelve wide column">
+                        <div className={`twelve wide column ${css.layoutContainer}`}>
                             <ContentCard>
                                 <>
                                     {flat.layouts.map((layout, index) => (

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Link, useHistory } from 'react-router-dom';
+import Currency from '../../components/Currency/Currency';
 import Contract from '../../types/Contract';
 
 const ContractDetailTable = (props: Props): ReactElement => {
@@ -31,7 +32,7 @@ const ContractDetailTable = (props: Props): ReactElement => {
                             <td>
                                 <h4 className="ui header">Basismiete</h4>
                             </td>
-                            <td>{props.contract.fee}</td>
+                            <td><Currency value={props.contract.fee} /></td>
                         </tr>
                         <tr>
                             <td>

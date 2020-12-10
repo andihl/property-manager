@@ -39,6 +39,7 @@ const ContractList = (): ReactElement => {
                             <td>{new Date(contract.startDate).toLocaleDateString()}</td>
                             <td>{contract.endDate ? new Date(contract.endDate).toLocaleDateString() : '-'}</td>
                             <td className="right aligned collapsing">
+                                <button className="ui tiny button" onClick={() => history.push(`/contracts/${contract._id}`)}>Details</button>
                                 <button className="ui tiny button" onClick={() => history.push(`/contracts/${contract._id}/edit`)}>Bearbeiten</button>
                             </td>
                         </tr>

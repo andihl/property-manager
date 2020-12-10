@@ -1,5 +1,9 @@
 .infoSection {
-    .layout {
-        width: 50% !important;
+    .layoutContainer {
+        text-align: center;
+        
+        .layout {
+            width: 50% !important;
+        }
     }
 }
