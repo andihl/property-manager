@@ -4,12 +4,14 @@ import reducer, { Actions } from "./reducer";
 
 export interface Store {
     flats: Flat[],
-    totalSize: number
+    totalSize: number,
+    isLoggedIn: boolean
 }
 
 const initialStore = {
     flats: [],
-    totalSize: 0
+    totalSize: 0,
+    isLoggedIn: localStorage.getItem('loggedIn') === 'true'
 }
 
 interface ContextProps {

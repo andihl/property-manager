@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Error404 from '../components/Error/Error404';
 import PageLayout from '../components/PageLayout/PageLayout';
@@ -17,53 +17,43 @@ import ContractDetails from './Contract/ContractDetails';
 import OperatingCostList from './OperatingCosts/OperatingCostsList';
 import OperatingCostsCreate from './OperatingCosts/OperatingCostsCreate';
 import OperatingCostsEdit from './OperatingCosts/OperatingCostsEdit';
-import { useStore } from '../store/store';
-import api from '../shared/api';
-import Flat from '../types/Flat';
-import { Spinner } from '../components/Spinner/Spinner';
+import { StoreProvider } from '../store/store';
+import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
+import Login from './Login/Login';
 
 const App = (): ReactElement => {
 
-    const [loading, setLoading] = useState<boolean>(true);
-    const { dispatch } = useStore();
-
-    useEffect(() => {
-        api<Flat[]>('GET', '/flat', (response) => {
-            setLoading(false);
-            dispatch({ type: 'UPDATE_FLATS', payload: { flats: response } });
-        });
-    }, [dispatch])
-
-    if (loading) return <Spinner />;
-
     return (
         <BrowserRouter>
-            <PageLayout>
-                <Switch>
-                    <Route path="/" exact component={Home} />
+            <StoreProvider>
+                <PageLayout>
+                    <Switch>
+                        <Route path="/login" exact component={Login} />
+                        <ProtectedRoute path="/" exact component={Home} />
 
-                    <Route path="/tenants" exact component={TenantList} />
-                    <Route path="/tenants/create" exact component={TenantCreate} />
-                    <Route path="/tenants/:id/edit" exact component={TenantEdit} />
+                        <ProtectedRoute path="/tenants" exact component={TenantList} />
+                        <ProtectedRoute path="/tenants/create" exact component={TenantCreate} />
+                        <ProtectedRoute path="/tenants/:id/edit" exact component={TenantEdit} />
 
-                    <Route path="/flats" exact component={FlatList} />
-                    <Route path="/flats/create" exact component={FlatCreate} />
-                    <Route path="/flats/:id/edit" exact component={FlatEdit} />
-                    <Route path="/flats/:id" exact component={FlatDetails} />
+                        <ProtectedRoute path="/flats" exact component={FlatList} />
+                        <ProtectedRoute path="/flats/create" exact component={FlatCreate} />
+                        <ProtectedRoute path="/flats/:id/edit" exact component={FlatEdit} />
+                        <ProtectedRoute path="/flats/:id" exact component={FlatDetails} />
 
-                    <Route path="/contracts" exact component={ContractList} />
-                    <Route path="/contracts/create" exact component={ContractCreate} />
-                    <Route path="/contracts/:id/edit" exact component={ContractEdit} />
-                    <Route path="/contracts/:id" exact component={ContractDetails} />
+                        <ProtectedRoute path="/contracts" exact component={ContractList} />
+                        <ProtectedRoute path="/contracts/create" exact component={ContractCreate} />
+                        <ProtectedRoute path="/contracts/:id/edit" exact component={ContractEdit} />
+                        <ProtectedRoute path="/contracts/:id" exact component={ContractDetails} />
 
-                    <Route path="/operating-costs" exact component={OperatingCostList} />
-                    <Route path="/operating-costs/create" exact component={OperatingCostsCreate} />
-                    <Route path="/operating-costs/:id/edit" exact component={OperatingCostsEdit} />
+                        <ProtectedRoute path="/operating-costs" exact component={OperatingCostList} />
+                        <ProtectedRoute path="/operating-costs/create" exact component={OperatingCostsCreate} />
+                        <ProtectedRoute path="/operating-costs/:id/edit" exact component={OperatingCostsEdit} />
 
-                    <Redirect from="/home" to="/" />
-                    <Route render={() => <Error404 />} />
-                </Switch>
-            </PageLayout>
+                        <Redirect from="/home" to="/" />
+                        <Route render={() => <Error404 />} />
+                    </Switch>
+                </PageLayout>
+            </StoreProvider>
         </BrowserRouter>
     );
 }
