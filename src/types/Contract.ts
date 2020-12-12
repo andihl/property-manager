@@ -17,7 +17,7 @@ export default interface Contract {
     endDate?: Date
 }
 
-export const calculateForUpcomingYear = (operatingCosts: OperatingCosts, totalSize: number): Promise<void | AxiosResponse<any>> => {
+export const calculateForUpcomingYear = (operatingCosts: OperatingCosts, totalSize: number): Promise<void | AxiosResponse<any>> => { // eslint-disable-line @typescript-eslint/no-explicit-any
     const sum = calculateTotalOperatingCosts(operatingCosts);
 
     const requests: Promise<AxiosResponse<any>>[] = []; // eslint-disable-line @typescript-eslint/no-explicit-any
