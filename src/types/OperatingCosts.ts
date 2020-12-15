@@ -1,5 +1,3 @@
-import Flat from "./Flat"
-
 export default interface OperatingCosts {
     readonly _id: number,
     year: number,
