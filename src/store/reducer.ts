@@ -9,15 +9,7 @@ interface UpdateFlats {
     }
 }
 
-interface Login {
-    type: 'LOGIN'
-}
-
-interface Logout {
-    type: 'LOGOUT'
-}
-
-export type Actions = UpdateFlats | Login | Logout;
+export type Actions = UpdateFlats;
 
 export default function reducer(store: Store, action: Actions): Store {
     switch (action.type) {
@@ -32,18 +24,6 @@ export default function reducer(store: Store, action: Actions): Store {
                 flats: action.payload.flats,
                 totalSize: totalSize
             };
-        }
-        case 'LOGIN': {
-            return {
-                ...store,
-                isLoggedIn: true
-            }
-        }
-        case 'LOGOUT': {
-            return {
-                ...store,
-                isLoggedIn: false
-            }
         }
         default:
             return store;

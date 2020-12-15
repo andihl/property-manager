@@ -1,12 +1,16 @@
-import React, { ReactElement, useEffect } from 'react'
+import { useAuth0 } from '@auth0/auth0-react';
+import React, { ReactElement } from 'react'
 import { Link, NavLink } from 'react-router-dom';
-import { useLogin } from '../../shared/login';
-import { useStore } from '../../store/store';
 import css from './PageLayout.module.scss';
 
 const PageLayout = (props: Props): ReactElement => {
-    const { logout } = useLogin();
-    const { store } = useStore();
+    const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+
+    const logoutWithRedirect = () => {
+        logout({
+            returnTo: window.location.origin,
+        });
+    }
 
     return (
         <>
@@ -15,15 +19,18 @@ const PageLayout = (props: Props): ReactElement => {
                     <Link className={`header item ${css.header}`} to="">
                         <h1>Property Manager</h1>
                     </Link>
-                    {store.isLoggedIn === true && (
+                    {isAuthenticated && (
                         <>
                             <NavLink to="/" exact className="item">Home</NavLink>
                             <NavLink to="/tenants" className="item">Mieter</NavLink>
                             <NavLink to="/flats" className="item">Wohnungen</NavLink>
                             <NavLink to="/contracts" className="item">Verträge</NavLink>
                             <NavLink to="/operating-costs" className="item">Betriebskosten</NavLink>
-                            <div className="item aligned right" onClick={logout}>Logout</div>
+                            <div className="item aligned right" onClick={logoutWithRedirect}>Logout</div>
                         </>
+                    )}
+                    {!isAuthenticated && (
+                        <div className="item aligned right" onClick={() => loginWithRedirect()}>Login</div>
                     )}
                 </div>
             </div>

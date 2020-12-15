@@ -19,7 +19,6 @@ import OperatingCostsCreate from './OperatingCosts/OperatingCostsCreate';
 import OperatingCostsEdit from './OperatingCosts/OperatingCostsEdit';
 import { StoreProvider } from '../store/store';
 import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
-import Login from './Login/Login';
 
 const App = (): ReactElement => {
 
@@ -28,8 +27,7 @@ const App = (): ReactElement => {
             <StoreProvider>
                 <PageLayout>
                     <Switch>
-                        <Route path="/login" exact component={Login} />
-                        <ProtectedRoute path="/" exact component={Home} />
+                        <Route path="/" exact component={Home} />
 
                         <ProtectedRoute path="/tenants" exact component={TenantList} />
                         <ProtectedRoute path="/tenants/create" exact component={TenantCreate} />

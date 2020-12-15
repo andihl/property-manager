@@ -1,25 +1,38 @@
-import * as React from 'react';
-import { Redirect, Route, RouteProps } from 'react-router';
-import { useStore } from '../../store/store';
+import React, { Component, ReactElement, useEffect } from 'react';
+import { Route, RouteComponentProps, RouteProps } from 'react-router';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
-const ProtectedRoute = ({ component: Component, ...rest }: Props): React.ReactElement => {
-    const { store } = useStore();
-    console.log(store.isLoggedIn);
+const ProtectedRoute = ({ component, path, ...rest }: Props): ReactElement => {
 
-    return (
-        <Route {...rest} render={(props) => (
-            store.isLoggedIn === true
-                ? <Component {...props} />
-                : <Redirect to='/login' />
-        )}
-        />
+    const { isLoading, isAuthenticated, loginWithRedirect } = useAuth0();
 
-    );
+    useEffect(() => {
+        const fn = async () => {
+            if (isLoading || !loginWithRedirect) {
+                return
+            }
+
+            if (!isAuthenticated) {
+                console.log('DDD');
+                await loginWithRedirect({
+                    redirect_uri: window.location.origin,
+                    appState: { targetUrl: path }
+                });
+            }
+        };
+        fn();
+    }, [isAuthenticated, loginWithRedirect, path, isLoading]);
+
+    const render = (props: RouteComponentProps<any>) => // eslint-disable-line @typescript-eslint/no-explicit-any
+        < Component {...props} />;
+
+    return <Route path={path} render={render} component={component} {...rest} />;
 };
 
 interface Props extends RouteProps {
-    component: React.ComponentType<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+    component: React.ComponentType<any> // eslint-disable-line @typescript-eslint/no-explicit-any
+    path: string
 }
 
 export default ProtectedRoute;
