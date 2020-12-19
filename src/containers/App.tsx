@@ -22,6 +22,8 @@ import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 
 const App = (): ReactElement => {
 
+    console.log(process.env);
+
     return (
         <BrowserRouter>
             <StoreProvider>

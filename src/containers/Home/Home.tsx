@@ -8,20 +8,22 @@ import { useStore } from '../../store/store';
 import api from '../../shared/api';
 import Flat from '../../types/Flat';
 import { Spinner } from '../../components/Spinner/Spinner';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Home = (): ReactElement => {
 
+    const { isAuthenticated } = useAuth0();
     const [loading, setLoading] = useState<boolean>(true);
     const { store, dispatch } = useStore();
 
     useEffect(() => {
-        if (store.flats.length === 0) {
+        if (store.flats.length === 0 && isAuthenticated) {
             api<Flat[]>('GET', '/flat', (response) => {
                 dispatch({ type: 'UPDATE_FLATS', payload: { flats: response } });
             });
         }
         setLoading(false);
-    }, [store.flats, dispatch])
+    }, [store.flats.length, isAuthenticated, dispatch])
 
     if (loading) return <Spinner />;
 

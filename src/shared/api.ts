@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 
 export const instance = Axios.create();
 instance.interceptors.request.use((config: AxiosRequestConfig): AxiosRequestConfig => {
-    config.baseURL = 'https://propertymanager-060e.restdb.io/rest';
+    config.baseURL = process.env.REACT_APP_API_URL;
     config.headers = {
         "content-type": "application/json",
-        "x-apikey": "5fc64a814af3f9656800d151",
+        "x-apikey": process.env.REACT_APP_API_KEY,
         "cache-control": "no-cache"
     };
 

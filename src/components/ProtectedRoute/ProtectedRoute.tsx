@@ -1,5 +1,5 @@
-import React, { Component, ReactElement, useEffect } from 'react';
-import { Route, RouteComponentProps, RouteProps } from 'react-router';
+import React, { ReactElement, useEffect } from 'react';
+import { Route, RouteProps } from 'react-router';
 import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -9,10 +9,6 @@ const ProtectedRoute = ({ component, path, ...rest }: Props): ReactElement => {
 
     useEffect(() => {
         const fn = async () => {
-            if (isLoading || !loginWithRedirect) {
-                return
-            }
-
             if (!isAuthenticated) {
                 console.log('DDD');
                 await loginWithRedirect({
@@ -24,10 +20,7 @@ const ProtectedRoute = ({ component, path, ...rest }: Props): ReactElement => {
         fn();
     }, [isAuthenticated, loginWithRedirect, path, isLoading]);
 
-    const render = (props: RouteComponentProps<any>) => // eslint-disable-line @typescript-eslint/no-explicit-any
-        < Component {...props} />;
-
-    return <Route path={path} render={render} component={component} {...rest} />;
+    return <Route path={path} component={component} {...rest} />;
 };
 
 interface Props extends RouteProps {
