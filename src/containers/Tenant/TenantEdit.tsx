@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useParams } from 'react-router-dom';
-import { Spinner } from '../../components/Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import TenantForm from '../../components/Tenant/TenantForm';
 import { useApi } from '../../shared/api';
 import Tenant from '../../types/Tenant';

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useParams } from 'react-router-dom';
 import FlatForm from '../../components/Flat/FlatForm';
-import { Spinner } from '../../components/Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import Flat from '../../types/Flat';
 import { useApi } from '../../shared/api';
 

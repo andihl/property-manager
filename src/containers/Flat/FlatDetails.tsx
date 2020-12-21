@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import ContentCard from '../../components/Card/ContentCard';
 import PageHeader from '../../components/PageHeader/PageHeader';
-import { Spinner } from '../../components/Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import api from '../../shared/api';
 import Contract from '../../types/Contract';
 import Flat from '../../types/Flat';

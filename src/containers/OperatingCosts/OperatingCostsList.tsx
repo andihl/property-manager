@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Currency from '../../components/Currency/Currency';
 import OperatingCostsBarChart from '../../components/OperatingCosts/OperatingCostsBarChart';
 import PageHeader from '../../components/PageHeader/PageHeader';
-import { Spinner } from '../../components/Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import { useApi } from '../../shared/api';
 import { useStore } from '../../store/store';
 import { calculateForUpcomingYear } from '../../types/Contract';

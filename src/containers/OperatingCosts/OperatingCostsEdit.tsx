@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useParams } from 'react-router-dom';
 import OperatingCostsForm from '../../components/OperatingCosts/OperatingCostsForm';
-import { Spinner } from '../../components/Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import { useApi } from '../../shared/api';
 import OperatingCosts from '../../types/OperatingCosts';
 

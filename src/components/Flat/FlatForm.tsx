@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import api from '../../shared/api';
 import { useStore } from '../../store/store';
 import Flat from '../../types/Flat';
-import { Spinner } from '../Spinner/Spinner';
+import Spinner from '../Spinner/Spinner';
 
 const FlatForm = (props: Props): ReactElement => {
     const history = useHistory();

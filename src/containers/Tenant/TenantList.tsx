@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useHistory } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader/PageHeader';
-import { Spinner } from '../../components/Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import { useApi } from '../../shared/api';
 import Tenant from '../../types/Tenant';
 

@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import css from './PageLayout.module.scss';
 
 const PageLayout = (props: Props): ReactElement => {
-    const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+    const { logout, isAuthenticated } = useAuth0();
 
     const logoutWithRedirect = () => {
         logout({
@@ -28,9 +28,6 @@ const PageLayout = (props: Props): ReactElement => {
                             <NavLink to="/operating-costs" className="item">Betriebskosten</NavLink>
                             <div className="item aligned right" onClick={logoutWithRedirect}>Logout</div>
                         </>
-                    )}
-                    {!isAuthenticated && (
-                        <div className="item aligned right" onClick={() => loginWithRedirect()}>Login</div>
                     )}
                 </div>
             </div>

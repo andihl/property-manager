@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useHistory } from 'react-router-dom';
 import LayoutThumbnail from '../../components/Flat/LayoutThumbnail';
 import PageHeader from '../../components/PageHeader/PageHeader';
-import { Spinner } from '../../components/Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import { useStore } from '../../store/store';
 
 const FlatList = (): ReactElement => {

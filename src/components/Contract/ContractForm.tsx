@@ -3,7 +3,7 @@ import api, { useApi } from '../../shared/api';
 import Contract from '../../types/Contract';
 import Flat from '../../types/Flat';
 import Tenant from '../../types/Tenant';
-import { Spinner } from '../Spinner/Spinner';
+import Spinner from '../Spinner/Spinner';
 import Select from 'react-select';
 import { useHistory } from 'react-router-dom';
 import FeeStep from '../../types/FeeStep';

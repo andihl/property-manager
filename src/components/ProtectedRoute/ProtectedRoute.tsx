@@ -1,31 +1,25 @@
-import React, { ReactElement, useEffect } from 'react';
-import { Route, RouteProps } from 'react-router';
+import React, { ReactElement } from 'react';
+import { Redirect, Route, RouteProps } from 'react-router';
 import { useAuth0 } from "@auth0/auth0-react";
+import Spinner from '../Spinner/Spinner';
 
+const ProtectedRoute = ({ component: Component, ...rest }: Props): ReactElement => {
+    const { isAuthenticated, isLoading } = useAuth0();
 
-const ProtectedRoute = ({ component, path, ...rest }: Props): ReactElement => {
+    if (isLoading) return <Spinner text="checke Login..." />
 
-    const { isLoading, isAuthenticated, loginWithRedirect } = useAuth0();
+    return (
+        <Route {...rest} render={(props) => (
+            isAuthenticated
+                ? <Component {...props} />
+                : <Redirect to='/login' />
+        )}
+        />
 
-    useEffect(() => {
-        const fn = async () => {
-            if (!isAuthenticated) {
-                console.log('DDD');
-                await loginWithRedirect({
-                    redirect_uri: window.location.origin,
-                    appState: { targetUrl: path }
-                });
-            }
-        };
-        fn();
-    }, [isAuthenticated, loginWithRedirect, path, isLoading]);
-
-    return <Route path={path} component={component} {...rest} />;
-};
+    );
+}
 
 interface Props extends RouteProps {
     component: React.ComponentType<any> // eslint-disable-line @typescript-eslint/no-explicit-any
-    path: string
 }
-
 export default ProtectedRoute;
