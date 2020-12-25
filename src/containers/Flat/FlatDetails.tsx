@@ -7,13 +7,16 @@ import api from '../../shared/api';
 import Contract from '../../types/Contract';
 import Flat from '../../types/Flat';
 import OperatingCosts from '../../types/OperatingCosts';
-import ContractDetailTable from '../Contract/ContractDetailTable';
+import ContractDetailTable from '../../components/Contract/ContractDetailTable';
 import css from './FlatDetails.module.scss';
-import FlatDetailsTable from './FlatDetailsTable';
-import OperatingCostsDetailTable from '../OperatingCosts/OperatingCostsDetailTable';
+import FlatDetailsTable from '../../components/Flat/FlatDetailsTable';
+import OperatingCostsDetailTable from '../../components/OperatingCosts/OperatingCostsDetailTable';
 import OperatingCostsLineChart from '../../components/OperatingCosts/OperatingCostsLineChart';
+import { useTitle } from '../../shared/title';
 
 const FlatDetails = (): ReactElement => {
+    useTitle('Wohnungsdetails')
+
     const params = useParams<{ id: string }>();
     const [loading, setLoading] = useState<boolean>(false);
     const [flat, setFlat] = useState<Flat>();

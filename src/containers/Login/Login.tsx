@@ -1,9 +1,12 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { ReactElement } from 'react';
 import ContentCard from '../../components/Card/ContentCard';
+import { useTitle } from '../../shared/title';
 import css from './Login.module.scss';
 
 const Login = (): ReactElement => {
+    useTitle('Login');
+
     const { loginWithRedirect } = useAuth0();
 
     const onLogin = () => {

@@ -3,9 +3,12 @@ import { useHistory } from 'react-router-dom';
 import LayoutThumbnail from '../../components/Flat/LayoutThumbnail';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Spinner from '../../components/Spinner/Spinner';
+import { useTitle } from '../../shared/title';
 import { useStore } from '../../store/store';
 
 const FlatList = (): ReactElement => {
+    useTitle('Wohnungsliste');
+
     const history = useHistory();
     const { store } = useStore();
 

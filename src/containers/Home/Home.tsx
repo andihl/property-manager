@@ -4,8 +4,11 @@ import layout from '../../assets/layout.png';
 import electricity from '../../assets/electricity.png';
 import person from '../../assets/person.png';
 import LinkCard from '../../components/Card/LinkCard';
+import { useTitle } from '../../shared/title';
 
 const Home = (): ReactElement => {
+    useTitle('Home');
+
     return (
         <div className="ui grid">
             <div className="eight wide column">

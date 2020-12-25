@@ -3,9 +3,12 @@ import { useHistory } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Spinner from '../../components/Spinner/Spinner';
 import { useApi } from '../../shared/api';
+import { useTitle } from '../../shared/title';
 import Tenant from '../../types/Tenant';
 
 const TenantList = (): ReactElement => {
+    useTitle('Mieterliste');
+
     const history = useHistory();
     const { obj: tenants, loading } = useApi<Tenant[]>('GET', '/tenant');
 

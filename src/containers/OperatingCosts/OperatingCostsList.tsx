@@ -5,11 +5,14 @@ import OperatingCostsBarChart from '../../components/OperatingCosts/OperatingCos
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Spinner from '../../components/Spinner/Spinner';
 import { useApi } from '../../shared/api';
+import { useTitle } from '../../shared/title';
 import { useStore } from '../../store/store';
 import { calculateForUpcomingYear } from '../../types/Contract';
 import OperatingCosts, { calculateTotalOperatingCosts } from '../../types/OperatingCosts';
 
 const OperatingCostList = (): ReactElement => {
+    useTitle('Betriebskostenliste');
+
     const history = useHistory();
     const { store } = useStore();
     const { obj: operatingCosts, setObj: setOperatingCosts, loading, setLoading } = useApi<OperatingCosts[]>('GET', '/operatingcosts?h={"$orderby": {"year": -1}}');

@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import Currency from '../../components/Currency/Currency';
+import Currency from '../Currency/Currency';
 import { useStore } from '../../store/store';
 import Flat from '../../types/Flat';
 import OperatingCosts, { calculateTotalOperatingCosts } from '../../types/OperatingCosts';

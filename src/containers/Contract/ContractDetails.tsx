@@ -7,11 +7,14 @@ import Spinner from '../../components/Spinner/Spinner'
 import { useApi } from '../../shared/api'
 import Contract from '../../types/Contract'
 import OperatingCosts from '../../types/OperatingCosts'
-import ContractDetailTable from './ContractDetailTable'
-import FlatDetailsTable from '../Flat/FlatDetailsTable'
-import OperatingCostsDetailTable from '../OperatingCosts/OperatingCostsDetailTable'
+import ContractDetailTable from '../../components/Contract/ContractDetailTable'
+import FlatDetailsTable from '../../components/Flat/FlatDetailsTable'
+import OperatingCostsDetailTable from '../../components/OperatingCosts/OperatingCostsDetailTable'
+import { useTitle } from '../../shared/title'
 
 const ContractDetails = (): ReactElement => {
+    useTitle('Vertragsdetails');
+
     const params = useParams<{ id: string }>();
     const { obj: contract, loading } = useApi<Contract>('GET', `/contract/${params.id}`);
     const { obj: operatingCosts } = useApi<OperatingCosts[]>('GET', '/operatingcosts');

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Link, useHistory } from 'react-router-dom';
-import Currency from '../../components/Currency/Currency';
+import Currency from '../Currency/Currency';
 import Contract from '../../types/Contract';
 
 const ContractDetailTable = (props: Props): ReactElement => {
