@@ -31,7 +31,7 @@ const App = (): ReactElement => {
     const { store, dispatch } = useStore();
 
     useEffect(() => {
-        if (store.flats.length === 0 && isAuthenticated) {
+        if (store.flats.length === 0 && (isAuthenticated || process.env.NODE_ENV === 'development')) {
             api<Flat[]>('GET', '/flat', (response) => {
                 setLoading(false);
                 dispatch({ type: 'UPDATE_FLATS', payload: { flats: response } });
