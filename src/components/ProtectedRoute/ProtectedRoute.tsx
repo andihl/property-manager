@@ -6,6 +6,15 @@ import Spinner from '../Spinner/Spinner';
 const ProtectedRoute = ({ component: Component, ...rest }: Props): ReactElement => {
     const { isAuthenticated, isLoading } = useAuth0();
 
+    if (process.env.NODE_ENV === 'development') {
+        return (
+            <Route {...rest} render={(props) => (
+                <Component {...props} />
+            )}
+            />
+        )
+    }
+
     if (isLoading) return <Spinner text="checke Login..." />
 
     return (
