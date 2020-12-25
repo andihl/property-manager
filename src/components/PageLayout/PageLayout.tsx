@@ -19,7 +19,7 @@ const PageLayout = (props: Props): ReactElement => {
                     <Link className={`header item ${css.header}`} to="">
                         <h1>Property Manager</h1>
                     </Link>
-                    {isAuthenticated && (
+                    {isAuthenticated || process.env.NODE_ENV === 'development' && (
                         <>
                             <NavLink to="/" exact className="item">Home</NavLink>
                             <NavLink to="/tenants" className="item">Mieter</NavLink>
