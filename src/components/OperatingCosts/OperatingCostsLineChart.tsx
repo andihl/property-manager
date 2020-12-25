@@ -4,12 +4,15 @@ import OperatingCosts, { calculateTotalOperatingCosts } from '../../types/Operat
 
 const OperatingCostsLineChart = (props: Props): ReactElement => {
 
-    const labels: string[] = [];
-    const data: number[] = []
-    props.operatingCosts.map(oc => {
+    let labels: string[] = [];
+    let data: number[] = []
+    props.operatingCosts.reverse().map(oc => {
         labels.push(oc.year.toString());
         data.push(calculateTotalOperatingCosts(oc))
     });
+
+    labels = labels.reverse();
+    data = data.reverse();
 
     const chartData = {
         labels: labels,
