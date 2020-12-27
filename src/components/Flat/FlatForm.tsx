@@ -1,12 +1,14 @@
 import React, { ChangeEvent, FormEvent, ReactElement, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import api from '../../shared/api';
+import { useFlashMessage } from '../../shared/flashMessage';
 import { useStore } from '../../store/store';
 import Flat from '../../types/Flat';
 import Spinner from '../Spinner/Spinner';
 
 const FlatForm = (props: Props): ReactElement => {
     const history = useHistory();
+    const { setFlashMessage } = useFlashMessage();
     const { dispatch } = useStore();
 
     const [name, setName] = useState<string>(props.flat?.name || '');
@@ -23,6 +25,7 @@ const FlatForm = (props: Props): ReactElement => {
             api<Flat[]>('GET', '/flat', (response) => {
                 dispatch({ type: 'UPDATE_FLATS', payload: { flats: response } })
                 setLoading(false);
+                setFlashMessage(`Wohnung wurde erfolgreich ${props.flat ? 'aktualisiert' : 'gespeichert'}`, 'success');
                 history.push('/flats');
             });
         }

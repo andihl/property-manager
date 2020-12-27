@@ -1,10 +1,12 @@
 import React, { FormEvent, ReactElement, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import api from '../../shared/api';
+import { useFlashMessage } from '../../shared/flashMessage';
 import Tenant from '../../types/Tenant';
 
 const TenantForm = (props: Props): ReactElement => {
     const history = useHistory();
+    const { setFlashMessage } = useFlashMessage();
 
     const [name, setName] = useState(props.tenant?.name || '');
     const [dateOfBirth, setDateOfBirth] = useState<string>(props.tenant?.dateOfBirth.toString().split('T')[0] || '');
@@ -17,15 +19,15 @@ const TenantForm = (props: Props): ReactElement => {
 
         const data = { name, dateOfBirth: new Date(dateOfBirth), address, phone, email };
 
-        if (props.tenant) {
-            api('PUT', `/tenant/${props.tenant._id}`, () => {
-                history.push('/tenants');
-            }, data);
+        const callback = () => {
+            setFlashMessage('Mieter wurde erfolgreich gespeichert', 'success');
+            history.push('/tenants');
+        }
 
+        if (props.tenant) {
+            api('PUT', `/tenant/${props.tenant._id}`, callback, data);
         } else {
-            api('POST', '/tenant', () => {
-                history.push('/tenants');
-            }, data);
+            api('POST', '/tenant', callback, data);
         }
     }
 

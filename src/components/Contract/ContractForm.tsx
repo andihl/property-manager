@@ -7,9 +7,11 @@ import Spinner from '../Spinner/Spinner';
 import Select from 'react-select';
 import { useHistory } from 'react-router-dom';
 import FeeStep from '../../types/FeeStep';
+import { useFlashMessage } from '../../shared/flashMessage';
 
 const ContractForm = (props: Props): ReactElement => {
     const history = useHistory();
+    const { setFlashMessage } = useFlashMessage();
 
     const [selectedTenants, setSelectedTenants] = useState<any>(() => { // eslint-disable-line @typescript-eslint/no-explicit-any
         if (!props.contract) return [];
@@ -82,17 +84,17 @@ const ContractForm = (props: Props): ReactElement => {
         });
 
         const flat = { '_id': selectedFlat.value };
-
         const data = { tenants, flat, fee, feesteps: steps, startDate, endDate: endDate ? endDate : null };
-        if (props.contract) {
-            api('PUT', `/contract/${props.contract._id}`, () => {
-                history.push('/contracts');
-            }, data);
 
+        const callback = () => {
+            setFlashMessage('Vertrag wurde erfolgreich gespeichert', 'success');
+            history.push('/contracts');
+        }
+
+        if (props.contract) {
+            api('PUT', `/contract/${props.contract._id}`, callback, data);
         } else {
-            api('POST', '/contract', () => {
-                history.push('/contracts');
-            }, data);
+            api('POST', '/contract', callback, data);
         }
     }
 

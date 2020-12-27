@@ -1,17 +1,26 @@
 import React, { createContext, Dispatch, ReactElement, useContext, useReducer } from "react";
 import Flat from "../types/Flat";
+import { FlashMessageType } from "../components/FlashMessage/FlashMessage";
 import reducer, { Actions } from "./reducer";
 
 export interface Store {
     flats: Flat[],
     totalSize: number,
-    isLoggedIn: boolean
+    flashMessage: {
+        text: string,
+        type: FlashMessageType,
+        duration: number | undefined
+    }
 }
 
 const initialStore = {
     flats: [],
     totalSize: 0,
-    isLoggedIn: localStorage.getItem('loggedIn') === 'true'
+    flashMessage: {
+        text: '',
+        type: null,
+        duration: undefined
+    }
 }
 
 interface ContextProps {

@@ -5,6 +5,7 @@ import OperatingCostsBarChart from '../../components/OperatingCosts/OperatingCos
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Spinner from '../../components/Spinner/Spinner';
 import { useApi } from '../../shared/api';
+import { useFlashMessage } from '../../shared/flashMessage';
 import { useTitle } from '../../shared/title';
 import { useStore } from '../../store/store';
 import { calculateForUpcomingYear } from '../../types/Contract';
@@ -12,6 +13,7 @@ import OperatingCosts, { calculateTotalOperatingCosts } from '../../types/Operat
 
 const OperatingCostList = (): ReactElement => {
     useTitle('Betriebskostenliste');
+    const { setFlashMessage } = useFlashMessage();
 
     const history = useHistory();
     const { store } = useStore();
@@ -28,6 +30,7 @@ const OperatingCostList = (): ReactElement => {
                 allocated: true
             }
             setOperatingCosts(operatingCosts_);
+            setFlashMessage('Betriebskosten wurden erfolgreich umgelegt', 'success');
             setLoading(false);
         });
     }

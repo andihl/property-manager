@@ -1,10 +1,12 @@
 import React, { FormEvent, ReactElement, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import api from '../../shared/api';
+import { useFlashMessage } from '../../shared/flashMessage';
 import OperatingCosts from '../../types/OperatingCosts';
 
 const OperatingCostsForm = (props: Props): ReactElement => {
     const history = useHistory();
+    const { setFlashMessage } = useFlashMessage();
 
     const [year, setYear] = useState<number>(props.operatingCosts?.year || new Date().getFullYear());
     const [water, setWater] = useState<number>(props.operatingCosts?.water || 0);
@@ -21,14 +23,15 @@ const OperatingCostsForm = (props: Props): ReactElement => {
 
         const data = { year, water, electricity, chimneysweep: chimneySweep, insurance, salary, garbagedisposal: garbageDisposal, garden, tax, allocated: false };
 
+        const callback = () => {
+            setFlashMessage('Betriebskosten wurde erfolgreich gespeichert', 'success');
+            history.push('/operating-costs')
+        }
+
         if (props.operatingCosts) {
-            api('PUT', `/operatingcosts/${props.operatingCosts._id}`, () => {
-                history.push('/operating-costs')
-            }, data);
+            api('PUT', `/operatingcosts/${props.operatingCosts._id}`, callback, data);
         } else {
-            api('POST', '/operatingcosts', () => {
-                history.push('/operating-costs')
-            }, data);
+            api('POST', '/operatingcosts', callback, data);
         }
     }
 
