@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom';
 import FlashMessage from '../FlashMessage/FlashMessage';
 import css from './PageLayout.module.scss';
@@ -20,7 +20,7 @@ const PageLayout = (props: Props): ReactElement => {
                     <Link className={`header item ${css.header}`} to="">
                         <h1>Property Manager</h1>
                     </Link>
-                    {isAuthenticated || process.env.NODE_ENV === 'development' && (
+                    {(isAuthenticated || process.env.NODE_ENV === 'development') && (
                         <>
                             <NavLink to="/" exact className="item">Home</NavLink>
                             <NavLink to="/tenants" className="item">Mieter</NavLink>
