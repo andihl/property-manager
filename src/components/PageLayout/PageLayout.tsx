@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 import { Link, NavLink } from 'react-router-dom';
 import FlashMessage from '../FlashMessage/FlashMessage';
 import css from './PageLayout.module.scss';
