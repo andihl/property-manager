@@ -1,8 +1,6 @@
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 
 export const useTitle = (title: string): void => {
-    const defaultTitle = useRef(document.title);
-
     useEffect(() => {
         title === ''
             ? document.title = `PropertyManager`
