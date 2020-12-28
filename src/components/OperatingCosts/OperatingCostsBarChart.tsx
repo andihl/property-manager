@@ -4,6 +4,8 @@ import { Bar } from 'react-chartjs-2';
 
 const OperatingCostsBarChart = (props: Props): ReactElement => {
 
+    if (props.operatingCosts.length === 0) return <></>;
+
     const config: { [key: string]: { label: string, color: string } } = {
         'water': { label: 'Wasser', color: 'rgba(0,0,255,0.6)' },
         'electricity': { label: 'Strom', color: 'rgba(255,255,0,0.6)' },

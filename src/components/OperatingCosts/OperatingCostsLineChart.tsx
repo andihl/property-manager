@@ -7,6 +7,8 @@ import OperatingCosts, { calculateTotalOperatingCosts } from '../../types/Operat
 const OperatingCostsLineChart = (props: Props): ReactElement => {
     const { store } = useStore();
 
+    if (props.operatingCosts.length === 0) return <></>;
+
     let labels: string[] = [];
     let data: number[] = []
 
