@@ -21,22 +21,29 @@ const FlatDetails = (): ReactElement => {
     const [loading, setLoading] = useState<boolean>(false);
     const [flat, setFlat] = useState<Flat>();
     const [contract, setContract] = useState<Contract | null>(null);
-    const [operatingCosts, setOperatingCosts] = useState<OperatingCosts[]>();
+    const [isContractLoading, setContractLoading] = useState<boolean>(false);
+    const [operatingCosts, setOperatingCosts] = useState<OperatingCosts[] | null>(null);
+    const [isOperatingCostsLoading, setOperatingCostsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         setLoading(true);
         api<Flat>('GET', `/flat/${params.id}`, (flat) => {
             setFlat(flat);
             setLoading(false);
+            setContractLoading(true);
             api<Contract[]>('GET', `/contract?q={"$or":[{"endDate":{"$exists":false}},{"endDate":{"$gt":{"$date":"$now"}}}],"startDate":{"$lte":{"$date":"$now"}},"flat":{"_id":"5fce374f3439f0540003bfe8"}}`, (contracts) => {
+                setContractLoading(false);
                 setContract(contracts?.length > 0 ? contracts[0] : null);
             });
 
+            setOperatingCostsLoading(true);
             api<OperatingCosts[]>('GET', '/operatingcosts?q={"allocated":true}', (operatingCosts) => {
-                setOperatingCosts(operatingCosts);
+                setOperatingCostsLoading(false);
+                setOperatingCosts(operatingCosts?.length > 0 ? operatingCosts : null);
             });
         })
     }, [params.id])
+
 
     if (loading || !flat) return <Spinner />
 
@@ -48,12 +55,12 @@ const FlatDetails = (): ReactElement => {
                 <div className="ui grid">
                     <div className="row">
                         <div className="four wide column">
-                            <div>
+                            <div className={`${css.dataContainer}`}>
                                 <ContentCard>
                                     <FlatDetailsTable flat={flat} />
                                 </ContentCard>
                                 <ContentCard>
-                                    <ContractDetailTable contract={contract} />
+                                    <ContractDetailTable contract={contract} isLoading={isContractLoading} />
                                 </ContentCard>
                             </div>
                         </div>
@@ -69,24 +76,24 @@ const FlatDetails = (): ReactElement => {
                             </ContentCard>
                         </div>
                     </div>
-                    {operatingCosts && (
-                        <>
+                    <>
+                        <div className="row">
+                            <div className="sixteen wide column">
+                                <ContentCard>
+                                    <OperatingCostsDetailTable operatingCosts={operatingCosts} flat={flat} isLoading={isOperatingCostsLoading} />
+                                </ContentCard>
+                            </div>
+                        </div>
+                        {operatingCosts && (
                             <div className="row">
                                 <div className="sixteen wide column">
                                     <ContentCard>
-                                        <OperatingCostsDetailTable operatingCosts={operatingCosts} flat={flat} />
+                                        <OperatingCostsLineChart operatingCosts={operatingCosts} flat={flat} mode="monthly" />
                                     </ContentCard>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="sixteen wide column">
-                                    <ContentCard>
-                                        <OperatingCostsLineChart operatingCosts={operatingCosts} />
-                                    </ContentCard>
-                                </div>
-                            </div>
-                        </>
-                    )}
+                        )}
+                    </>
                 </div>
             </div >
         </>

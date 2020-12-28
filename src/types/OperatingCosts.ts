@@ -12,13 +12,19 @@ export default interface OperatingCosts {
     allocated: boolean
 }
 
-export const calculateTotalOperatingCosts = (oc: OperatingCosts): number => {
-    return oc.water +
+export const calculateTotalOperatingCosts = (oc: OperatingCosts, mode: 'yearly' | 'monthly'): number => {
+    let sum = oc.water +
         oc.electricity +
         oc.chimneysweep +
         oc.insurance +
         oc.salary +
         oc.garbagedisposal +
         oc.garden +
-        oc.tax
+        oc.tax;
+
+    if (mode === 'monthly') {
+        sum /= 12;
+    }
+
+    return sum;
 }

@@ -2,9 +2,12 @@ import React, { ReactElement } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import Currency from '../Currency/Currency';
 import Contract from '../../types/Contract';
+import Spinner from '../Spinner/Spinner';
 
 const ContractDetailTable = (props: Props): ReactElement => {
     const history = useHistory();
+
+    if (props.isLoading) return <Spinner />
 
     return (
         <table className="ui very basic celled table">
@@ -69,7 +72,8 @@ const ContractDetailTable = (props: Props): ReactElement => {
 }
 
 interface Props {
-    contract?: Contract | null
+    contract: Contract | null,
+    isLoading?: boolean
 }
 
 export default ContractDetailTable;

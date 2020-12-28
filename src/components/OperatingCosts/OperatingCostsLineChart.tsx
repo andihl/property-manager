@@ -1,14 +1,20 @@
 import React, { ReactElement } from 'react';
 import { Line } from 'react-chartjs-2';
+import { useStore } from '../../store/store';
+import Flat from '../../types/Flat';
 import OperatingCosts, { calculateTotalOperatingCosts } from '../../types/OperatingCosts';
 
 const OperatingCostsLineChart = (props: Props): ReactElement => {
+    const { store } = useStore();
 
     let labels: string[] = [];
     let data: number[] = []
-    props.operatingCosts.reverse().map(oc => {
+
+    const calculatePercentual = (value: number): number => value * (props.flat.size / store.totalSize);
+
+    props.operatingCosts.map(oc => {
         labels.push(oc.year.toString());
-        data.push(calculateTotalOperatingCosts(oc))
+        data.push(Math.floor(calculatePercentual(calculateTotalOperatingCosts(oc, props.mode))));
     });
 
     labels = labels.reverse();
@@ -43,7 +49,9 @@ const OperatingCostsLineChart = (props: Props): ReactElement => {
 }
 
 interface Props {
-    operatingCosts: OperatingCosts[]
+    operatingCosts: OperatingCosts[],
+    flat: Flat,
+    mode: 'yearly' | 'monthly'
 }
 
 export default OperatingCostsLineChart

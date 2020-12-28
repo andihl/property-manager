@@ -18,7 +18,7 @@ export default interface Contract {
 }
 
 export const calculateForUpcomingYear = (operatingCosts: OperatingCosts, totalSize: number): Promise<void | AxiosResponse<any>> => { // eslint-disable-line @typescript-eslint/no-explicit-any
-    const sum = calculateTotalOperatingCosts(operatingCosts);
+    const sum = calculateTotalOperatingCosts(operatingCosts, 'monthly');
 
     const requests: Promise<AxiosResponse<any>>[] = []; // eslint-disable-line @typescript-eslint/no-explicit-any
 
@@ -33,7 +33,7 @@ export const calculateForUpcomingYear = (operatingCosts: OperatingCosts, totalSi
                 operatingCosts_ = [...contract_.advancedpaymentofoperatingcosts]
             }
 
-            const newOperatingCosts = { year: operatingCosts.year + 1, amount: Math.floor(sum * partOfTotalSize / 12) };
+            const newOperatingCosts = { year: operatingCosts.year + 1, amount: Math.floor(sum * partOfTotalSize) };
             operatingCosts_.push(newOperatingCosts);
             contract_.advancedpaymentofoperatingcosts = operatingCosts_;
 

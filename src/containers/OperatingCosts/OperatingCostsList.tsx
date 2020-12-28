@@ -70,7 +70,7 @@ const OperatingCostList = (): ReactElement => {
                                         <td><Currency value={operatingCost.garbagedisposal} /></td>
                                         <td><Currency value={operatingCost.garden} /></td>
                                         <td><Currency value={operatingCost.tax} /></td>
-                                        <td><Currency value={calculateTotalOperatingCosts(operatingCost)} />
+                                        <td><Currency value={calculateTotalOperatingCosts(operatingCost, 'yearly')} />
                                         </td>
                                         <td className="right aligned collapsing">
                                             {!operatingCost.allocated ? (
