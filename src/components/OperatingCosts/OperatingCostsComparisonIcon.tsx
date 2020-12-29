@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import OperatingCosts from '../../types/OperatingCosts';
 
 const OperatingCostsComparisonIcon = (props: Props): ReactElement => {
     if (props.comparingValue > props.value) {
