@@ -2,13 +2,13 @@ import React, { ReactElement } from 'react'
 import OperatingCostsComparisonIcon from './OperatingCostsComparisonIcon';
 
 const OperatingCostsFormRow = (props: Props): ReactElement => {
-    const { value, setter, comparingValue } = props;
+    const { label, value, setter, comparingValue } = props;
 
     return (
         <tr>
             <td>
                 <div className="field required">
-                    <label>Wasser</label>
+                    <label>{label}</label>
                     <input type="number" value={value} onChange={e => setter(+e.target.value)} required autoComplete="off" />
                 </div>
             </td>
@@ -34,6 +34,7 @@ const OperatingCostsFormRow = (props: Props): ReactElement => {
 }
 
 interface Props {
+    label: string,
     value: number,
     setter: (value: number) => void,
     comparingValue?: number

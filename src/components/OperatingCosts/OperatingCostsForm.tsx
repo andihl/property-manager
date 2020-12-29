@@ -71,14 +71,14 @@ const OperatingCostsForm = (props: Props): ReactElement => {
                                     )}
                                 </td>
                             </tr>
-                            <OperatingCostsFormRow value={water} setter={setWater} comparingValue={comparingOc?.water} />
-                            <OperatingCostsFormRow value={electricity} setter={setElectricity} comparingValue={comparingOc?.electricity} />
-                            <OperatingCostsFormRow value={chimneySweep} setter={setChimneySweep} comparingValue={comparingOc?.chimneysweep} />
-                            <OperatingCostsFormRow value={insurance} setter={setInsurance} comparingValue={comparingOc?.insurance} />
-                            <OperatingCostsFormRow value={salary} setter={setSalary} comparingValue={comparingOc?.salary} />
-                            <OperatingCostsFormRow value={garbageDisposal} setter={setGarbageDisposal} comparingValue={comparingOc?.garbagedisposal} />
-                            <OperatingCostsFormRow value={garden} setter={setGarden} comparingValue={comparingOc?.garden} />
-                            <OperatingCostsFormRow value={tax} setter={setTax} comparingValue={comparingOc?.tax} />
+                            <OperatingCostsFormRow label="Wasser" value={water} setter={setWater} comparingValue={comparingOc?.water} />
+                            <OperatingCostsFormRow label="Strom" value={electricity} setter={setElectricity} comparingValue={comparingOc?.electricity} />
+                            <OperatingCostsFormRow label="Schornsteinfeger" value={chimneySweep} setter={setChimneySweep} comparingValue={comparingOc?.chimneysweep} />
+                            <OperatingCostsFormRow label="Versicherung" value={insurance} setter={setInsurance} comparingValue={comparingOc?.insurance} />
+                            <OperatingCostsFormRow label="Gehälter" value={salary} setter={setSalary} comparingValue={comparingOc?.salary} />
+                            <OperatingCostsFormRow label="Müllabfuhr" value={garbageDisposal} setter={setGarbageDisposal} comparingValue={comparingOc?.garbagedisposal} />
+                            <OperatingCostsFormRow label="Garten" value={garden} setter={setGarden} comparingValue={comparingOc?.garden} />
+                            <OperatingCostsFormRow label="Steuern" value={tax} setter={setTax} comparingValue={comparingOc?.tax} />
                             <tr>
                                 <td>
                                     <div className="field">
