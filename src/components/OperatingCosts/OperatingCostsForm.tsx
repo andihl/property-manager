@@ -1,8 +1,11 @@
-import React, { FormEvent, ReactElement, useState } from 'react'
+import React, { FormEvent, ReactElement, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import api from '../../shared/api';
 import { useFlashMessage } from '../../shared/flashMessage';
-import OperatingCosts from '../../types/OperatingCosts';
+import OperatingCosts, { calculateTotalOperatingCosts } from '../../types/OperatingCosts';
+import OperatingCostsComparisonIcon from './OperatingCostsComparisonIcon';
+import css from './OperatingCostsForm.module.scss'
+import OperatingCostsFormRow from './OperatingCostsFormRow';
 
 const OperatingCostsForm = (props: Props): ReactElement => {
     const history = useHistory();
@@ -17,6 +20,13 @@ const OperatingCostsForm = (props: Props): ReactElement => {
     const [garbageDisposal, setGarbageDisposal] = useState<number>(props.operatingCosts?.garbagedisposal || 0);
     const [garden, setGarden] = useState<number>(props.operatingCosts?.garden || 0);
     const [tax, setTax] = useState<number>(props.operatingCosts?.tax || 0);
+    const [comparingOc, setComparingOc] = useState<OperatingCosts>();
+
+    useEffect(() => {
+        api<OperatingCosts[]>('GET', `/operatingcosts?q={"year":${year - 1}}`, oc => {
+            setComparingOc(oc[0]);
+        });
+    }, [year])
 
     const saveOperatingCosts = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -35,50 +45,74 @@ const OperatingCostsForm = (props: Props): ReactElement => {
         }
     }
 
-    return (
-        <form className="ui form" onSubmit={saveOperatingCosts}>
-            <fieldset disabled={props.operatingCosts?.allocated}>
-                <div className="field required">
-                    <label>Jahr</label>
-                    <input type="number" value={year} onChange={e => setYear(+e.target.value)} required autoComplete="off" />
-                </div>
-                <div className="field required">
-                    <label>Wasser</label>
-                    <input type="number" value={water} onChange={e => setWater(+e.target.value)} required autoComplete="off" />
-                </div>
-                <div className="field required">
-                    <label>Strom</label>
-                    <input type="number" value={electricity} onChange={e => setElectricity(+e.target.value)} required autoComplete="off" />
-                </div>
-                <div className="field required">
-                    <label>Schonrnsteinfeger</label>
-                    <input type="number" value={chimneySweep} onChange={e => setChimneySweep(+e.target.value)} required autoComplete="off" />
-                </div>
-                <div className="field required">
-                    <label>Versicherung</label>
-                    <input type="number" value={insurance} onChange={e => setInsurance(+e.target.value)} required autoComplete="off" />
-                </div>
-                <div className="field required">
-                    <label>Gehälter (Hauswart,Winterdienst, ...)</label>
-                    <input type="number" value={salary} onChange={e => setSalary(+e.target.value)} required autoComplete="off" />
-                </div>
-                <div className="field required">
-                    <label>Müllabfuhr</label>
-                    <input type="number" value={garbageDisposal} onChange={e => setGarbageDisposal(+e.target.value)} required autoComplete="off" />
-                </div>
-                <div className="field required">
-                    <label>Garten</label>
-                    <input type="number" value={garden} onChange={e => setGarden(+e.target.value)} required autoComplete="off" />
-                </div>
-                <div className="field required">
-                    <label>Steuern</label>
-                    <input type="number" value={tax} onChange={e => setTax(+e.target.value)} required autoComplete="off" />
-                </div>
-            </fieldset><br />
+    const getTotal = (): number => {
+        return water + electricity + chimneySweep + insurance + salary + garbageDisposal + garden + tax;
+    }
 
-            <button type="submit" className="ui button" disabled={props.operatingCosts?.allocated}>Speichern</button>
-            <button type="button" className="ui button" onClick={() => { history.push('/operating-costs') }}>Abbrechen</button>
-        </form>
+    return (
+        <>
+            <form className="ui form" onSubmit={e => saveOperatingCosts(e)}>
+                <fieldset disabled={props.operatingCosts?.allocated}>
+                    <table className={`ui very basic table ${css.ocTable}`}>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div className="field required">
+                                        <label>Jahr</label>
+                                        <input type="number" value={year} onChange={e => setYear(+e.target.value)} required autoComplete="off" />
+                                    </div>
+                                </td>
+                                <td className={`${css.comparingColumn}`}></td>
+                                <td className={`bottom aligned ${css.comparingColumn}`}>
+                                    {comparingOc && (
+                                        <div className="field">
+                                            <input value={comparingOc.year} disabled />
+                                        </div>
+                                    )}
+                                </td>
+                            </tr>
+                            <OperatingCostsFormRow value={water} setter={setWater} comparingValue={comparingOc?.water} />
+                            <OperatingCostsFormRow value={electricity} setter={setElectricity} comparingValue={comparingOc?.electricity} />
+                            <OperatingCostsFormRow value={chimneySweep} setter={setChimneySweep} comparingValue={comparingOc?.chimneysweep} />
+                            <OperatingCostsFormRow value={insurance} setter={setInsurance} comparingValue={comparingOc?.insurance} />
+                            <OperatingCostsFormRow value={salary} setter={setSalary} comparingValue={comparingOc?.salary} />
+                            <OperatingCostsFormRow value={garbageDisposal} setter={setGarbageDisposal} comparingValue={comparingOc?.garbagedisposal} />
+                            <OperatingCostsFormRow value={garden} setter={setGarden} comparingValue={comparingOc?.garden} />
+                            <OperatingCostsFormRow value={tax} setter={setTax} comparingValue={comparingOc?.tax} />
+                            <tr>
+                                <td>
+                                    <div className="field">
+                                        <label>Gesamt</label>
+                                        <input type="number" value={getTotal()} disabled />
+                                    </div>
+                                </td>
+                                <td className="bottom aligned">
+                                    {comparingOc && (
+                                        <div className="field">
+                                            <div className="ui icon input">
+                                                <input value={getTotal() - calculateTotalOperatingCosts(comparingOc, 'yearly')} disabled />
+                                                <OperatingCostsComparisonIcon value={getTotal()} comparingValue={calculateTotalOperatingCosts(comparingOc, 'yearly')} />
+                                            </div>
+                                        </div>
+                                    )}
+                                </td>
+                                <td className="bottom aligned">
+                                    {comparingOc && (
+                                        <div className="field">
+                                            <input value={calculateTotalOperatingCosts(comparingOc, 'yearly')} disabled />
+                                        </div>
+                                    )}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+
+                <button type="submit" className="ui button" disabled={props.operatingCosts?.allocated}>Speichern</button>
+                <button type="button" className="ui button" onClick={() => { history.push('/operating-costs') }}>Abbrechen</button>
+            </form>
+
+        </>
     )
 }
 
