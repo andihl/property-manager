@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Select from 'react-select';
 import api from '../../shared/api';
 import { useFlashMessage } from '../../shared/flashMessage';
-import { Gender, GenderLabel } from '../../types/Gender';
+import { GenderLabel } from '../../types/Gender';
 import Tenant from '../../types/Tenant';
 
 const TenantForm = (props: Props): ReactElement => {
