@@ -1,13 +1,29 @@
 import React, { FormEvent, ReactElement, useState } from 'react'
 import { useHistory } from 'react-router-dom';
+import Select from 'react-select';
 import api from '../../shared/api';
 import { useFlashMessage } from '../../shared/flashMessage';
+import { Gender, GenderLabel } from '../../types/Gender';
 import Tenant from '../../types/Tenant';
 
 const TenantForm = (props: Props): ReactElement => {
     const history = useHistory();
     const { setFlashMessage } = useFlashMessage();
 
+    const [selectedGender, setSelectedGender] = useState<any>(() => { // eslint-disable-line @typescript-eslint/no-explicit-any
+        if (!props.tenant) return null;
+
+        const label = props.tenant.gender === 'MALE'
+            ? GenderLabel.MALE
+            : props.tenant.gender === 'FEMALE'
+                ? GenderLabel.FEMALE
+                : GenderLabel.DIVERSE;
+
+        return {
+            value: props.tenant.gender,
+            label: label
+        }
+    });
     const [name, setName] = useState(props.tenant?.name || '');
     const [dateOfBirth, setDateOfBirth] = useState<string>(props.tenant?.dateOfBirth.toString().split('T')[0] || '');
     const [address, setAddress] = useState<string>(props.tenant?.address || '');
@@ -17,7 +33,7 @@ const TenantForm = (props: Props): ReactElement => {
     const saveTenant = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const data = { name, dateOfBirth: new Date(dateOfBirth), address, phone, email };
+        const data = { gender: selectedGender.value, name, dateOfBirth: new Date(dateOfBirth), address, phone, email };
 
         const callback = () => {
             setFlashMessage('Mieter wurde erfolgreich gespeichert', 'success');
@@ -33,6 +49,23 @@ const TenantForm = (props: Props): ReactElement => {
 
     return (
         <form className="ui form" onSubmit={saveTenant}>
+            <div className="required field">
+                {/* <label>Anrede</label>
+                <input type="text" value={name} onChange={e => setName(e.target.value)} required autoComplete="off" /> */}
+
+                <label>Anrede</label>
+                <Select
+                    options={[
+                        { value: 'MALE', label: GenderLabel.MALE },
+                        { value: 'FEMALE', label: GenderLabel.FEMALE },
+                        { value: 'DIVERSE', label: GenderLabel.DIVERSE }
+                    ]}
+                    value={selectedGender}
+                    onChange={setSelectedGender}
+                    placeholder=''
+                />
+
+            </div>
 
             <div className="required field">
                 <label>Name</label>
