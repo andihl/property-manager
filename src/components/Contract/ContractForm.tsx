@@ -28,6 +28,7 @@ const ContractForm = (props: Props): ReactElement => {
             label: props.contract.flat[0].name
         };
     });
+    const [deposit, setDeposit] = useState<number>(0);
     const [fee, setFee] = useState<number>(props.contract?.fee || 0);
     const [steps, setSteps] = useState<FeeStep[]>(props.contract?.feesteps || []);
     const [startDate, setStartDate] = useState<string>(props.contract?.startDate.toString().split('T')[0] || '');
@@ -84,7 +85,7 @@ const ContractForm = (props: Props): ReactElement => {
         });
 
         const flat = { '_id': selectedFlat.value };
-        const data = { tenants, flat, fee, feesteps: steps, startDate, endDate: endDate ? endDate : null };
+        const data = { tenants, flat, deposit, fee, feesteps: steps, startDate, endDate: endDate ? endDate : null };
 
         const callback = () => {
             setFlashMessage('Vertrag wurde erfolgreich gespeichert', 'success');
@@ -126,6 +127,10 @@ const ContractForm = (props: Props): ReactElement => {
             <div className="field">
                 <label>Mietende</label>
                 <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />
+            </div>
+            <div className="required field">
+                <label>Kaution</label>
+                <input type="number" value={deposit} onChange={e => setDeposit(+e.target.value)} required />
             </div>
             <div className="required field">
                 <label>Miete</label>

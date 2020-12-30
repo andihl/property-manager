@@ -10,6 +10,7 @@ export default interface Contract {
     readonly _id: number,
     tenants: Tenant[],
     flat: Flat[], // because restdb.io sends always an array
+    deposit: number,
     fee: number,
     feesteps?: FeeStep[],
     advancedpaymentofoperatingcosts?: AdvancedPaymentOfOperatingCosts[],

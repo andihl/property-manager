@@ -33,6 +33,12 @@ const ContractDetailTable = (props: Props): ReactElement => {
                         </tr>
                         <tr>
                             <td>
+                                <h4 className="ui header">Kaution</h4>
+                            </td>
+                            <td><Currency value={props.contract.deposit} /></td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <h4 className="ui header">Basismiete</h4>
                             </td>
                             <td><Currency value={props.contract.fee} /></td>

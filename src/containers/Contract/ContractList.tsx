@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useHistory } from 'react-router-dom';
+import Currency from '../../components/Currency/Currency';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Spinner from '../../components/Spinner/Spinner';
 import { useApi } from '../../shared/api';
@@ -23,6 +24,7 @@ const ContractList = (): ReactElement => {
                     <tr>
                         <th>Mieter</th>
                         <th>Wohnung</th>
+                        <th>Kaution</th>
                         <th>Miete</th>
                         <th>Anzahl Staffeln</th>
                         <th>Startdatum</th>
@@ -37,7 +39,8 @@ const ContractList = (): ReactElement => {
                                 {contract.tenants.map(tenant => tenant.name).join(', ')}
                             </td>
                             <td>{contract.flat[0].name}</td>
-                            <td>{contract.fee}</td>
+                            <td><Currency value={contract.deposit} /></td>
+                            <td><Currency value={contract.fee} /></td>
                             <td>{contract.feesteps?.length || 0}</td>
                             <td>{new Date(contract.startDate).toLocaleDateString()}</td>
                             <td>{contract.endDate ? new Date(contract.endDate).toLocaleDateString() : '-'}</td>
