@@ -21,7 +21,7 @@ const FlashMessage = (): ReactElement | null => {
 
     return (
         isVisible ? (
-            <div className={`ui icon ${type} message ${css.message}`}>
+            <div className={`ui icon ${type} message ${css.message}`} onClick={() => setVisibility(false)}>
                 {type === 'success' && <i className="check icon"></i>}
                 {type === 'error' && <i className="times icon"></i>}
                 <div className="content">
