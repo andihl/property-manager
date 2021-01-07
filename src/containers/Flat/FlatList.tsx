@@ -1,8 +1,9 @@
-import React, { ChangeEvent, ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import LayoutThumbnail from '../../components/Flat/LayoutThumbnail';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Spinner from '../../components/Spinner/Spinner';
+import { useSearch } from '../../shared/search';
 import { useTitle } from '../../shared/title';
 import { useStore } from '../../store/store';
 import Flat from '../../types/Flat';
@@ -12,29 +13,20 @@ const FlatList = (): ReactElement => {
 
     const history = useHistory();
     const { store } = useStore();
+    const { setList, filteredList: flats, search } = useSearch<Flat>();
 
-    const [flats, setFlats] = useState<Flat[]>(store.flats);
+    useEffect(() => {
+        setList(store.flats);
+    }, [store.flats]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    if (!store.flats) return <Spinner />
-
-    const onSearch = (event: ChangeEvent<HTMLInputElement>): void => {
-        const searchTerm = event.target.value.toLowerCase();
-        if (searchTerm === '') {
-            setFlats(store.flats);
-        } else {
-            const tmp = store.flats.filter(flat => {
-                return flat.name.toLowerCase().includes(searchTerm);
-            })
-            setFlats(tmp);
-        }
-    }
+    if (!store.flats || !flats) return <Spinner />
 
     return (
         <>
             <PageHeader headline="Wohnungen">
                 <div className="ui icon input">
                     <i className="search icon"></i>
-                    <input type="text" placeholder="Suche" onChange={e => onSearch(e)} />
+                    <input type="text" placeholder="Suche" onChange={e => search(e.target.value, 'name')} />
                 </div>
             </PageHeader>
 

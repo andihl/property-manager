@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Spinner from '../../components/Spinner/Spinner';
-import { useApi } from '../../shared/api';
+import api from '../../shared/api';
+import { useSearch } from '../../shared/search';
 import { useTitle } from '../../shared/title';
 import Tenant from '../../types/Tenant';
 
@@ -10,13 +11,26 @@ const TenantList = (): ReactElement => {
     useTitle('Mieterliste');
 
     const history = useHistory();
-    const { obj: tenants, loading } = useApi<Tenant[]>('GET', '/tenant');
+    const [loading, setLoading] = useState<boolean>(true);
+    const { setList, filteredList: tenants, search } = useSearch<Tenant>();
+
+    useEffect(() => {
+        api<Tenant[]>('GET', '/tenant', tenants => {
+            setList(tenants);
+            setLoading(false);
+        })
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     if (loading || !tenants) return <Spinner />;
 
     return (
         <>
-            <PageHeader headline="Mieter" />
+            <PageHeader headline="Mieter">
+                <div className="ui icon input">
+                    <i className="search icon"></i>
+                    <input type="text" placeholder="Suche" onChange={e => search(e.target.value, 'name')} />
+                </div>
+            </PageHeader>
 
             <table className="ui single line table">
                 <thead>
