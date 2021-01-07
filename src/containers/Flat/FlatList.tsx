@@ -1,10 +1,11 @@
-import React, { ReactElement } from 'react'
+import React, { ChangeEvent, ReactElement, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import LayoutThumbnail from '../../components/Flat/LayoutThumbnail';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import Spinner from '../../components/Spinner/Spinner';
 import { useTitle } from '../../shared/title';
 import { useStore } from '../../store/store';
+import Flat from '../../types/Flat';
 
 const FlatList = (): ReactElement => {
     useTitle('Wohnungsliste');
@@ -12,12 +13,29 @@ const FlatList = (): ReactElement => {
     const history = useHistory();
     const { store } = useStore();
 
+    const [flats, setFlats] = useState<Flat[]>(store.flats);
+
     if (!store.flats) return <Spinner />
+
+    const onSearch = (event: ChangeEvent<HTMLInputElement>): void => {
+        const searchTerm = event.target.value.toLowerCase();
+        if (searchTerm === '') {
+            setFlats(store.flats);
+        } else {
+            const tmp = store.flats.filter(flat => {
+                return flat.name.toLowerCase().includes(searchTerm);
+            })
+            setFlats(tmp);
+        }
+    }
 
     return (
         <>
             <PageHeader headline="Wohnungen">
-                <>{`Gesamtgröße aller Wohnungen: ${store.totalSize}`}&#13217;</>
+                <div className="ui icon input">
+                    <i className="search icon"></i>
+                    <input type="text" placeholder="Suche" onChange={e => onSearch(e)} />
+                </div>
             </PageHeader>
 
             <table className="ui single line table">
@@ -26,11 +44,13 @@ const FlatList = (): ReactElement => {
                         <th>Name</th>
                         <th>Größe</th>
                         <th>Grundriss(e)</th>
-                        <th></th>
+                        <th>
+                            {`Gesamtgröße aller Wohnungen: ${store.totalSize}`}&#13217;
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {store.flats.map(flat => (
+                    {flats.map(flat => (
                         <tr key={flat._id}>
                             <td>{flat.name}</td>
                             <td>{flat.size}&#13217;</td>
